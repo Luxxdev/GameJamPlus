@@ -50,5 +50,13 @@ shape = SubResource( 2 )
 position = Vector2( 158.5, 39.625 )
 shape = SubResource( 3 )
 
-[node name="Node2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( 158, 96 )
+[node name="EnemySpawner" parent="." instance=ExtResource( 4 )]
+position = Vector2( 168, -136 )
+
+[node name="EnemyArea" parent="EnemySpawner/EnemyAreas" index="0"]
+position = Vector2( -60, 2 )
+
+[node name="EnemyArea2" parent="EnemySpawner/EnemyAreas" index="1"]
+position = Vector2( 88, -39 )
+
+[editable path="EnemySpawner"]
