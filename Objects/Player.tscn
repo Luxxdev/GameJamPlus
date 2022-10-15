@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://PlayerScript.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Fall"
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id=4]
+resource_name = "Run"
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 3, 3 )
+collision_layer = 2
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 5.36442e-07, -1.07288e-06 )
+scale = Vector2( 0.3125, 0.625 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fall = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Run = SubResource( 4 )
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+position = Vector2( 0, -2.5 )
+rotation = 3.14159
+enabled = true
+cast_to = Vector2( 0, 18.204 )
+
+[node name="WallRaycast" type="Node2D" parent="."]
+
+[node name="RayCastSides" type="RayCast2D" parent="WallRaycast"]
+position = Vector2( 10.0379, -12.4942 )
+rotation = 1.5708
+enabled = true
+cast_to = Vector2( 0, 20.121 )
+
+[node name="RayCastSides2" type="RayCast2D" parent="WallRaycast"]
+position = Vector2( 10.0379, 11.0243 )
+rotation = 1.5708
+enabled = true
+cast_to = Vector2( 0, 20.121 )
