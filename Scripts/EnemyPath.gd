@@ -1,4 +1,4 @@
-extends PathFollow2D
+extends Path2D
 
 export var runSpeed = 1
 var inPlayerArea = false
@@ -9,6 +9,8 @@ var positionOffset = Vector2(50,50)
 var life = 3
 var positionInSpawner
 var spawnerRef
+onready var sprite = $PathFollow2D/Sprite
+onready var path = $PathFollow2D
 
 enum state{
 	PATROL,
@@ -21,24 +23,24 @@ enum state{
 func _process(delta):
 	match stateControl:
 		state.PATROL:
-			set_offset(get_offset() + runSpeed + delta)
+			path.set_offset(path.get_offset() + runSpeed + delta)
 		state.ATTACK:
 			if canAttack:
 				Attack()
 		state.FOLLOW:
-			$Sprite.global_position = $Sprite.global_position.move_toward(object.position, 2)
+			sprite.global_position = sprite.global_position.move_toward(object.position, 2)
 		state.BACK:
-			$Sprite.position = $Sprite.position.move_toward(Vector2(0,0), 2.5)
+			sprite.position = sprite.position.move_toward(Vector2(0,0), 2.5)
 		state.RECOIL:
-			$Sprite.position = $Sprite.position.move_toward(Vector2(0,0), 10)
-	if $Sprite.position == Vector2(0,0):
+			sprite.position = sprite.position.move_toward(Vector2(0,0), 10)
+	if sprite.position == Vector2(0,0):
 		stateControl = state.PATROL
 #	if (!loop and unit_offset == 1):
 #		queue_free()
 
 func Attack():
 	if object != null:
-		$Sprite.global_position = $Sprite.global_position.move_toward(object.position, 15)
+		sprite.global_position = sprite.global_position.move_toward(object.position, 15)
 #		if $Sprite.global_position == object.global_position:
 			
 func TakeDamage():
@@ -46,7 +48,7 @@ func TakeDamage():
 #	print("ai")
 	if life <= 0:
 		spawnerRef.enemyInPosition[positionInSpawner] = null
-		get_parent().queue_free()
+		queue_free()
 
 func _on_AttackArea_body_entered(body):
 	if "Player" in body.name:

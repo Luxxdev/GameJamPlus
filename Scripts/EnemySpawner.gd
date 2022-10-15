@@ -25,13 +25,11 @@ func _ready():
 	timer.start()
 
 func _on_SpawnTimer_timeout():
-	print("timeout")
 	timer.start()
 	if enemies.get_child_count() >= maxEnemies:
 		pass
 	else:
 		if canSpawn:
-			print("set o spawn")
 			set_spawn_position()
 #		yield(get_tree().create_timer(0.2), "timeout")
 #		if canSpawn:
@@ -40,15 +38,15 @@ func _on_SpawnTimer_timeout():
 func SpawnEnemy(pos):
 	var enemy_instance = enemy.instance()
 	enemies.add_child(enemy_instance)
+	enemyInPosition[pos] = pos
 	enemy_instance.global_position = spawnPositions[pos].global_position
-	enemy_instance.get_child(0).positionInSpawner = pos
-	enemy_instance.get_child(0).spawnerRef = self
+	enemy_instance.positionInSpawner = pos
+	enemy_instance.spawnerRef = self
 
 func set_spawn_position():
 	for i in range(enemyInPosition.size()):
 		if enemyInPosition[i] == null:
 			SpawnEnemy(i)
-			print("spawna")
 			
 #	enemyArea.global_position = to_global(Vector2(rand_range(-areaSize.x, areaSize.x), rand_range(-areaSize.y, areaSize.y)))
 #	yield(get_tree().create_timer(0.01), "timeout")

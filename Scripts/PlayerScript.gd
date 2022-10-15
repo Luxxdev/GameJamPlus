@@ -244,7 +244,7 @@ func _on_DashTimer_timeout():
 
 func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
-		area.get_parent().get_parent().TakeDamage()
+		area.get_parent().get_parent().get_parent().TakeDamage()
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
 		canJump = true

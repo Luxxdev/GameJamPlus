@@ -21,13 +21,12 @@ radius = 28.1111
 position = Vector2( 69.0001, 120 )
 scale = Vector2( 0.4, 0.4 )
 curve = SubResource( 4 )
+script = ExtResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2( 72, -15 )
 rotate = false
 lookahead = 0.001
-script = ExtResource( 2 )
-runSpeed = 2
 
 [node name="Sprite" type="Sprite" parent="PathFollow2D"]
 modulate = Color( 0.909804, 0.635294, 0.345098, 1 )
@@ -48,8 +47,8 @@ shape = SubResource( 7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Sprite/DamageArea"]
 shape = SubResource( 8 )
 
-[connection signal="body_entered" from="PathFollow2D/Sprite/PlayerFollowCheck" to="PathFollow2D" method="_on_PlayerFollowCheck_body_entered"]
-[connection signal="body_exited" from="PathFollow2D/Sprite/PlayerFollowCheck" to="PathFollow2D" method="_on_PlayerFollowCheck_body_exited"]
-[connection signal="body_entered" from="PathFollow2D/Sprite/AttackArea" to="PathFollow2D" method="_on_AttackArea_body_entered"]
-[connection signal="body_exited" from="PathFollow2D/Sprite/AttackArea" to="PathFollow2D" method="_on_AttackArea_body_exited"]
-[connection signal="body_entered" from="PathFollow2D/Sprite/DamageArea" to="PathFollow2D" method="_on_DamageArea_body_entered"]
+[connection signal="body_entered" from="PathFollow2D/Sprite/PlayerFollowCheck" to="." method="_on_PlayerFollowCheck_body_entered"]
+[connection signal="body_exited" from="PathFollow2D/Sprite/PlayerFollowCheck" to="." method="_on_PlayerFollowCheck_body_exited"]
+[connection signal="body_entered" from="PathFollow2D/Sprite/AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="body_exited" from="PathFollow2D/Sprite/AttackArea" to="." method="_on_AttackArea_body_exited"]
+[connection signal="body_entered" from="PathFollow2D/Sprite/DamageArea" to="." method="_on_DamageArea_body_entered"]
