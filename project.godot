@@ -14,6 +14,15 @@ config/name="VerticalMetroidV"
 run/main_scene="res://Scenes/TestScene.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=320
+window/size/height=240
+window/size/test_width=1280
+window/size/test_height=960
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
