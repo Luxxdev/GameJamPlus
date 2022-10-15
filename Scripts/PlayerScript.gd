@@ -196,17 +196,14 @@ func GetDirection():
 		var temp = []
 		for i in dashTarget:
 			temp.append([i, i.global_position.distance_to(global_position)])
-		temp.sort_custom(MyCustomSorter, "sort_ascending")
+		temp.sort_custom(MyCustomSorter, "sort_ascending_by_second_element")
 		direction = (temp[0][0].global_position - global_position).normalized()
-		print(temp)
-		
 	return direction
 
 class MyCustomSorter:
-	static func sort_ascending(a, b):
-		if a[1] < b[1]:
-			return true
-		return false
+	static func sort_ascending_by_second_element(a, b):
+		return a[1] < b[1]
+			
 
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
