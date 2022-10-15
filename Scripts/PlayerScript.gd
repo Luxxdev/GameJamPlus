@@ -14,8 +14,8 @@ var inputEnabled = true
 var moveDir = Vector2(-1,0)
 var noMovementInput = true
 var walking = false
-var acceleration = 75
-var maxSpeed = 150
+var acceleration = 100
+var maxSpeed = 200
 var canJump = true
 var justJumped = false
 var jumpHeight = 500
@@ -23,6 +23,7 @@ var jumpHeight = 500
 var dashDirection
 var dashSpeed = 2000
 var canDash = true
+var isDashing = false
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -34,6 +35,8 @@ onready var raycastSide = $WallRaycast/RayCastSides
 onready var raycastSide2 = $WallRaycast/RayCastSides2
 onready var raycastUp = $RayCastUp
 onready var dashTimer = $DashTimer
+onready var dashCooldown = $DashCooldown
+onready var attackAreaColl = $Sprite/AttackArea/CollisionShape2D
 
 func _physics_process(_delta):
 	#motion.y = min(motion.y+gravity, maxGravity)
@@ -97,7 +100,7 @@ func _physics_process(_delta):
 		motion.y += gravity
 		sprite.flip_v = false
 		
-	if Input.is_action_just_pressed("Dash") and canDash:
+	if Input.is_action_just_pressed("Dash") and canDash and dashCooldown.is_stopped():
 		Dash()
 	if Input.is_action_just_pressed("Jump") and inputEnabled:
 		Jump()
@@ -149,18 +152,17 @@ func move():
 func Jump():
 	if canJump:
 		if _check_is_valid_wall():
-			print(wallDirection)
 			jumpDirection.x = wallDirection
 			motion.x = maxSpeed*3*(jumpDirection.x)
 		else:
 			jumpDirection.x = moveDir.x * 2
 			motion.x = maxSpeed*(jumpDirection.x)
-			print(jumpDirection.x)
 			
-		motion.y = jumpDirection.y * jumpHeight 
+		motion.y = jumpDirection.y * jumpHeight
 		#$JumpSound.play()
-		canJump = false
 		canDash = true
+		yield(get_tree().create_timer(0.01), "timeout")
+		canJump = false
 #		acceleration = airAcceleration
 #		justJumped = true
 #		yield(get_tree().create_timer(maxCoyoteTime), "timeout") 
@@ -192,11 +194,24 @@ func GetDirection():
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
 	dashTimer.start()
-	yield(get_tree().create_timer(0.05), "timeout")
+	dashCooldown.start()
+	isDashing = true
+	attackAreaColl.disabled = false
+	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
 
 
 func _on_DashTimer_timeout():
+	isDashing = false
+	attackAreaColl.disabled = true	
 	motion = Vector2(0,0)
 	pass # Replace with function body.
+
+
+func _on_AttackArea_area_entered(area):
+	if area.is_in_group("DashTarget"):
+		#dano no inimigo
+		yield(Dash(), "completed")
+		canDash = true
+		canJump = true

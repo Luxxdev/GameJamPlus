@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScript.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 39.4667, 34.6667 )
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -26,6 +29,12 @@ texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AttackArea" type="Area2D" parent="Sprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/AttackArea"]
+shape = SubResource( 5 )
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -60,4 +69,8 @@ cast_to = Vector2( 0, 20.121 )
 wait_time = 0.15
 one_shot = true
 
+[node name="DashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="Sprite/AttackArea" to="." method="_on_AttackArea_area_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
