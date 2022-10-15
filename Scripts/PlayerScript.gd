@@ -59,9 +59,8 @@ func _physics_process(delta):
 	
 	if _check_is_valid_wall() or raycastUp.is_colliding():
 		canJump = true
-		if !walking:
-			motion.y = 0
-		#motion.y += 0
+		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+			motion.y = lerp(motion.y, 0, 0.2)
 	else:
 		motion.y += gravity
 		sprite.flip_v = false
