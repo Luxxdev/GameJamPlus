@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/MenuButton.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="Control" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 160, 120.5 )
+scale = Vector2( 5, 3.73438 )
+texture = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 258.0
+margin_bottom = 177.0
+
+[node name="Play" type="Button" parent="Control"]
+margin_left = 107.0
+margin_top = 138.0
+margin_right = 192.0
+margin_bottom = 171.0
+text = "Play"
+script = ExtResource( 1 )
+reference_path = "Play"
+
+[node name="Quit" type="Button" parent="Control"]
+margin_left = 124.0
+margin_top = 178.0
+margin_right = 176.0
+margin_bottom = 208.0
+text = "Quit"
+script = ExtResource( 1 )
+reference_path = "Quit"
+
+[connection signal="pressed" from="Control/Play" to="Control/Play" method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/Quit" to="Control/Quit" method="_on_Button_pressed"]
