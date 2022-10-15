@@ -25,6 +25,8 @@ var dashSpeed = 750
 var canDash = true
 var isDashing = false
 var dashTarget = []
+var stunned = false
+var falling = false
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -51,17 +53,17 @@ func _physics_process(_delta):
 #			animPlayer.play("Idle")
 #		else:
 #			animPlayer.play("Fall")
-	if Input.is_action_pressed("ui_right") and inputEnabled:
+	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
 		moveDir.x = 1
 		move()
-	elif Input.is_action_pressed("ui_left") and inputEnabled:
+	elif Input.is_action_pressed("ui_left") and !falling and inputEnabled:
 		moveDir.x = -1
 		move()
-	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and inputEnabled:
+	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and !falling and inputEnabled:
 		moveDir.y = -1
 #		moveDir.x = 0
 		move()
-	elif Input.is_action_pressed("ui_down") and _check_is_valid_wall() and inputEnabled:
+	elif Input.is_action_pressed("ui_down") and _check_is_valid_wall() and !falling and inputEnabled:
 		moveDir.y = 1
 #		moveDir.x = 0
 		move()
@@ -97,13 +99,15 @@ func _physics_process(_delta):
 				motion.y -= gravity
 			elif motion.y < 0:
 				motion.y += gravity
+		if !stunned and falling:
+			falling = false
 	else:
 		motion.y += gravity
 		sprite.flip_v = false
 		
-	if Input.is_action_just_pressed("Dash") and canDash and dashCooldown.is_stopped():
+	if Input.is_action_just_pressed("Dash") and canDash and !falling and dashCooldown.is_stopped():
 		Dash()
-	if Input.is_action_just_pressed("Jump") and inputEnabled:
+	if Input.is_action_just_pressed("Jump") and !falling and inputEnabled:
 		Jump()
 	
 	if is_on_floor() or raycastUp.is_colliding():
@@ -115,6 +119,9 @@ func _physics_process(_delta):
 			motion.x = lerp(motion.x, 0, 0.2)
 		if raycastUp.is_colliding():
 			jumpDirection.y = 0.5
+		if !stunned and falling:
+			falling = false
+			
 	else:
 		jumpDirection.y = -1
 		
@@ -131,11 +138,11 @@ func move():
 #		move_dir *= -1
 	if moveDir.x > 0 and motion.x < maxSpeed:
 		motion.x = min(motion.x+acceleration, maxSpeed)
-		sprite.flip_h = true
+		sprite.flip_h = false
 		animPlayer.play("Run")
 	elif moveDir.x < 0 and motion.x > -maxSpeed:
 		motion.x = max(motion.x-acceleration, -maxSpeed)
-		sprite.flip_h = false
+		sprite.flip_h = true
 		animPlayer.play("Run")
 	if moveDir.y > 0:
 		motion.y = min(motion.y+acceleration, maxSpeed)
@@ -169,6 +176,8 @@ func Jump():
 #		justJumped = false
 
 func _check_is_valid_wall():
+	if falling:
+		return false
 	for raycasts in wallraycast.get_children():
 		if raycasts.is_colliding():
 			if raycasts.get_collision_point().x > global_position.x:
@@ -203,6 +212,17 @@ class MyCustomSorter:
 	static func sort_ascending_by_second_element(a, b):
 		return a[1] < b[1]
 			
+func TakeDamage(dir):
+	if isDashing:
+		pass
+	else:
+		stunned = true
+		falling = true
+		motion.y = -100
+		motion.x = 200 * dir
+		yield(get_tree().create_timer(0.5), "timeout")
+		stunned = false
+	
 
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
@@ -224,7 +244,7 @@ func _on_DashTimer_timeout():
 
 func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
-		#dano no inimigo
+		area.get_parent().get_parent().TakeDamage()
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
 		canJump = true

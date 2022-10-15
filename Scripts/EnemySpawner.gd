@@ -10,26 +10,28 @@ var canSpawn = true
 export var maxEnemies = 5
 export var spawnFrequency = 5.0
 onready var enemies = $Enemies
-export var spawnPositions = []
+var spawnPositions = []
 var enemyInPosition = []
 onready var visibilityNotifier = $VisibilityNotifier2D
 
 func _ready():
-	for i in $EnemyAreas.get_children():
-		spawnPositions.append(i)
+	for i in range($EnemyAreas.get_child_count()):
+		spawnPositions.append($EnemyAreas.get_child(i))
+		enemyInPosition.append(i)
+	print(spawnPositions)
 	timer.wait_time = spawnFrequency
-	spawnPositions.shuffle()
 	for i in range (spawnPositions.size()):
-		enemyInPosition.append(null)
-#		SpawnEnemy(i)
+		SpawnEnemy(i)
 	timer.start()
 
 func _on_SpawnTimer_timeout():
+	print("timeout")
 	timer.start()
 	if enemies.get_child_count() >= maxEnemies:
 		pass
 	else:
 		if canSpawn:
+			print("set o spawn")
 			set_spawn_position()
 #		yield(get_tree().create_timer(0.2), "timeout")
 #		if canSpawn:
@@ -38,14 +40,16 @@ func _on_SpawnTimer_timeout():
 func SpawnEnemy(pos):
 	var enemy_instance = enemy.instance()
 	enemies.add_child(enemy_instance)
-	enemy_instance.global_position = pos.global_position
-	pass
+	enemy_instance.global_position = spawnPositions[pos].global_position
+	enemy_instance.get_child(0).positionInSpawner = pos
+	enemy_instance.get_child(0).spawnerRef = self
 
 func set_spawn_position():
-	enemyInPosition.shuffle()
 	for i in range(enemyInPosition.size()):
 		if enemyInPosition[i] == null:
-			SpawnEnemy(spawnPositions[i])
+			SpawnEnemy(i)
+			print("spawna")
+			
 #	enemyArea.global_position = to_global(Vector2(rand_range(-areaSize.x, areaSize.x), rand_range(-areaSize.y, areaSize.y)))
 #	yield(get_tree().create_timer(0.01), "timeout")
 #	if enemyArea.get_overlapping_bodies() != []:
