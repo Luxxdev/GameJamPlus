@@ -20,8 +20,11 @@ var canJump = true
 var justJumped = false
 var jumpHeight = 500
 #var airAcceleration = 50
-var currentCoyote = 0
-var maxCoyote = 0.2
+var dashDirection
+var dashSpeed = 2000
+var canDash = true
+#var currentCoyote = 0
+#var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
 var wallDirection = 0
 onready var sprite = $Sprite
@@ -30,14 +33,14 @@ onready var wallraycast = $WallRaycast
 onready var raycastSide = $WallRaycast/RayCastSides
 onready var raycastSide2 = $WallRaycast/RayCastSides2
 onready var raycastUp = $RayCastUp
+onready var dashTimer = $DashTimer
 
 func _physics_process(_delta):
 	#motion.y = min(motion.y+gravity, maxGravity)
-	if !is_on_floor():
-		currentCoyote += _delta
-		if currentCoyote > maxCoyote:
-			canJump = false
-		
+#	if !is_on_floor():
+#		currentCoyote += _delta
+#		if currentCoyote > maxCoyote:
+#			canJump = false
 	moveDir = Vector2(0,0)
 #	if !canMove:
 #		if is_on_floor():
@@ -70,10 +73,10 @@ func _physics_process(_delta):
 #		elif _check_is_valid_wall():
 #			animPlayer.play("IdleWall")
 	
-	
 	if _check_is_valid_wall() or raycastUp.is_colliding():
 		canJump = true
-		currentCoyote = 0
+		canDash = true
+#		currentCoyote = 0
 		if moveDir.y == -1:
 			if motion.y > 0:
 				motion.y = 0
@@ -94,12 +97,15 @@ func _physics_process(_delta):
 		motion.y += gravity
 		sprite.flip_v = false
 		
+	if Input.is_action_just_pressed("Dash") and canDash:
+		Dash()
 	if Input.is_action_just_pressed("Jump") and inputEnabled:
 		Jump()
 	
 	if is_on_floor() or raycastUp.is_colliding():
 		canJump = true
-		currentCoyote = 0
+		canDash = true
+#		currentCoyote = 0
 		sprite.flip_v = false
 		if (moveDir.x == 0):
 			motion.x = lerp(motion.x, 0, 0.2)
@@ -111,7 +117,10 @@ func _physics_process(_delta):
 	
 	if _check_is_valid_wall() and noMovementInput:
 		motion.y = lerp(motion.y, 0, 0.2)
-	motion = move_and_slide(motion, UP)
+	if !dashTimer.is_stopped():
+		motion = move_and_slide(dashDirection, UP)
+	else:
+		motion = move_and_slide(motion, UP)
 
 func move():
 #	if invertControls:
@@ -151,6 +160,7 @@ func Jump():
 		motion.y = jumpDirection.y * jumpHeight 
 		#$JumpSound.play()
 		canJump = false
+		canDash = true
 #		acceleration = airAcceleration
 #		justJumped = true
 #		yield(get_tree().create_timer(maxCoyoteTime), "timeout") 
@@ -166,8 +176,27 @@ func _check_is_valid_wall():
 			return true
 	wallDirection = 0
 	return false
+	
+func GetDirection():
+	var direction = Vector2(0,0)
+	direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
+	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	direction = direction.clamped(1)
+	if(direction == Vector2(0,0)):
+		if(sprite.flip_h):
+			direction.x = 1
+		else:
+			direction.x = -1
+	return direction
+	
+func Dash():
+	dashDirection = GetDirection() * dashSpeed
+	dashTimer.start()
+	yield(get_tree().create_timer(0.05), "timeout")
+	canDash = false
+	canJump = false #IF não acertar um inimigo
 
-#func play_animation(animation):
-#	if can_play and current_anim != animation:
-#		current_anim = animation
-#		AnimPlayer.play(animation)
+
+func _on_DashTimer_timeout():
+	motion = Vector2(0,0)
+	pass # Replace with function body.
