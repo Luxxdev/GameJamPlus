@@ -18,10 +18,10 @@ var acceleration = 100
 var maxSpeed = 200
 var canJump = true
 var justJumped = false
-var jumpHeight = 500
+var jumpHeight = 300
 #var airAcceleration = 50
 var dashDirection
-var dashSpeed = 2000
+var dashSpeed = 750
 var canDash = true
 var isDashing = false
 var dashTarget = []
@@ -154,7 +154,7 @@ func Jump():
 	if canJump:
 		if _check_is_valid_wall():
 			jumpDirection.x = wallDirection
-			motion.x = maxSpeed*3*(jumpDirection.x)
+			motion.x = maxSpeed*1.5*(jumpDirection.x)
 		else:
 			jumpDirection.x = moveDir.x * 2
 			motion.x = maxSpeed*(jumpDirection.x)
