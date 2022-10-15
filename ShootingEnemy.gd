@@ -34,7 +34,6 @@ func Shoot():
 
 func GenerateRaycasts():
 	var rayCount = angleConeOfVision / angleBetweenRays
-	
 	for i in rayCount:
 		var ray = RayCast2D.new()
 		var angle = angleBetweenRays * (i - rayCount / 2.0)
