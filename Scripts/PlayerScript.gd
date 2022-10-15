@@ -24,6 +24,7 @@ var dashDirection
 var dashSpeed = 2000
 var canDash = true
 var isDashing = false
+var dashTarget = []
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -180,17 +181,33 @@ func _check_is_valid_wall():
 	return false
 	
 func GetDirection():
+	print("foi")
 	var direction = Vector2(0,0)
-	direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
-	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	direction = direction.clamped(1)
-	if(direction == Vector2(0,0)):
-		if(sprite.flip_h):
-			direction.x = 1
-		else:
-			direction.x = -1
+	if dashTarget == []:
+		direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
+		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		direction = direction.clamped(1)
+		if(direction == Vector2(0,0)):
+			if(sprite.flip_h):
+				direction.x = 1
+			else:
+				direction.x = -1
+	else:
+		var temp = []
+		for i in dashTarget:
+			temp.append([i, i.global_position.distance_to(global_position)])
+		temp.sort_custom(MyCustomSorter, "sort_ascending")
+		direction = (temp[0][0].global_position - global_position).normalized()
+		print(temp)
+		
 	return direction
-	
+
+class MyCustomSorter:
+	static func sort_ascending(a, b):
+		if a[1] < b[1]:
+			return true
+		return false
+
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
 	dashTimer.start()
@@ -212,6 +229,14 @@ func _on_DashTimer_timeout():
 func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
 		#dano no inimigo
-		yield(Dash(), "completed")
+		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
 		canJump = true
+
+func _on_DetectionArea_area_entered(area):
+	if area.is_in_group("DashTarget"):
+		dashTarget.append(area)
+
+func _on_DetectionArea_area_exited(area):
+	if area.is_in_group("DashTarget"):
+		dashTarget.erase(area)

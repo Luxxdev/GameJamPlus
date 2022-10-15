@@ -74,5 +74,23 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
 shape = SubResource( 6 )
 
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 531, 468 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Sprite2" groups=["DashTarget"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2/Area2D"]
+shape = SubResource( 6 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 181, 544 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Sprite3" groups=["DashTarget"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite3/Area2D"]
+shape = SubResource( 6 )
+
 [connection signal="body_entered" from="StaticBody2D/Path2D/PathFollow2D/Sprite/PlayerAreaCheck" to="StaticBody2D/Path2D/PathFollow2D" method="_on_PlayerAreaCheck_body_entered"]
 [connection signal="body_exited" from="StaticBody2D/Path2D/PathFollow2D/Sprite/PlayerAreaCheck" to="StaticBody2D/Path2D/PathFollow2D" method="_on_PlayerAreaCheck_body_exited"]
