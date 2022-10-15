@@ -18,7 +18,7 @@ resource_name = "Idle"
 resource_name = "Run"
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 72.7619
+radius = 104.335
 
 [sub_resource type="AnimationNodeAnimation" id=7]
 

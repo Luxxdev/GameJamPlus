@@ -1,12 +1,14 @@
 extends Node2D
 
 
-var enemy = load("res://Objects/Player.tscn")
+var enemy = load("res://Objects/EnemyPath.tscn")
 onready var areaSize = $Area2D/CollisionShape2D.get_shape().get_extents()
 onready var timer = $SpawnTimer
 onready var enemyArea = $EnemyArea
 var timerDefaultWaitTime
 var canSpawn = false
+export var maxEnemies
+onready var enemies = $Enemies
 
 func _ready():
 	timer.start()
@@ -17,7 +19,7 @@ func _on_SpawnTimer_timeout():
 	yield(get_tree().create_timer(0.2), "timeout")
 	if canSpawn:
 		var enemy_instance = enemy.instance()
-		add_child(enemy_instance)
+		enemies.add_child(enemy_instance)
 		enemy_instance.global_position = enemyArea.global_position
 		pass
 		
