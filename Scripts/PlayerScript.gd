@@ -158,7 +158,6 @@ func Jump():
 		else:
 			jumpDirection.x = moveDir.x * 2
 			motion.x = maxSpeed*(jumpDirection.x)
-			
 		motion.y = jumpDirection.y * jumpHeight
 		#$JumpSound.play()
 		canDash = true
