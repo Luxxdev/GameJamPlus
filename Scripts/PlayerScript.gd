@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+class_name Player
 
 # Declare member variables here. Examples:
 # var a = 2

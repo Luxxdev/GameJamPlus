@@ -7,7 +7,7 @@ onready var timer = $SpawnTimer
 onready var enemyArea = $EnemyArea
 var timerDefaultWaitTime
 var canSpawn = false
-export var maxEnemies
+export var maxEnemies = 5
 onready var enemies = $Enemies
 
 func _ready():

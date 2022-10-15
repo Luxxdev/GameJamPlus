@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://ShootingEnemy.gd"
+}, {
+"base": "Node",
+"class": "EnemyResource",
+"language": "GDScript",
+"path": "res://Scripts/EnemyRes.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scripts/PlayerScript.gd"
+} ]
+_global_script_class_icons={
+"Enemy": "",
+"EnemyResource": "",
+"Player": ""
+}
+
 [application]
 
 config/name="VerticalMetroidV"
