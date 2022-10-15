@@ -58,8 +58,10 @@ func set_spawn_position():
 
 func _on_VisibilityNotifier2D_screen_entered():
 	canSpawn = false
+	timer.set_paused(true)
 	pass # Replace with function body.
 
 func _on_VisibilityNotifier2D_screen_exited():
 	canSpawn = true
+	timer.set_paused(false)
 	pass # Replace with function body.

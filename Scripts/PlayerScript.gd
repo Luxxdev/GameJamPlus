@@ -176,7 +176,7 @@ func Jump():
 #		justJumped = false
 
 func _check_is_valid_wall():
-	if falling:
+	if falling and stunned:
 		return false
 	for raycasts in wallraycast.get_children():
 		if raycasts.is_colliding():
@@ -234,17 +234,15 @@ func Dash():
 	canDash = false
 	canJump = false #IF não acertar um inimigo
 
-
 func _on_DashTimer_timeout():
 	isDashing = false
 	attackAreaColl.disabled = true	
 	motion = Vector2(0,0)
 	pass # Replace with function body.
 
-
 func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
-		area.get_parent().get_parent().get_parent().TakeDamage()
+		area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
 		canJump = true
