@@ -5,11 +5,12 @@ var fightStarted
 var currentState = state.COOLDOWN
 onready var enemySpawner = $BossBody/EnemySpawner
 var count = 0
-var cooldown = 5
+var cooldown = 2 
 var life = 10
 onready var sprite = $BossBody/Sprite
 var playerOnDamageArea = false
 export(PackedScene) var Bullet
+onready var bulletSpawnPoint = $BossBody/ShootingPoint/Position2D
 
 func _ready():
 	set_process(false)
@@ -40,7 +41,7 @@ func _process(delta):
 		state.ATTACK:
 			print("atk1")
 			cooldown = 1
-#			Shoot()
+			Shoot()
 			currentState = state.COOLDOWN
 		state.ATTACK2:
 			print("atk2")
@@ -54,11 +55,11 @@ func _process(delta):
 		state.COOLDOWN:
 			count += delta
 			if count > cooldown:
-				pass
 				currentState = state.ATTACK
 			
 	if currentState != state.COOLDOWN:
 		count = 0
+	
 	if playerOnDamageArea and !player.isDashing:
 		var dir
 		if sprite.global_position.x - player.global_position.x > 0:
@@ -72,10 +73,11 @@ func Shoot(): # jogar oito bolas de fogo
 	var dir = Vector2.RIGHT
 	for i in range(8):
 		var bulletInstance = Bullet.instance()
-		bulletInstance.rotation = dir.rotated(45*i)
-		bulletInstance.global_position = $Position2D.global_position
-		bulletInstance.velocity = 100
-		get_parent().get_parent().get_parent().add_child(bulletInstance)
+		bulletSpawnPoint.get_parent().rotation_degrees = 45*i
+		bulletInstance.rotation_degrees = bulletSpawnPoint.get_parent().rotation_degrees
+		bulletInstance.global_position = bulletSpawnPoint.global_position
+		bulletInstance.velocity = Vector2(cos(bulletSpawnPoint.get_parent().rotation), sin(bulletSpawnPoint.get_parent().rotation))
+		get_parent().add_child(bulletInstance)
 	
 func Atack(): #porrada?
 	pass

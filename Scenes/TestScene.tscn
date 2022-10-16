@@ -145,6 +145,15 @@ position = Vector2( -14, 170 )
 [node name="RigidBody2D" parent="Boss/ExitBlockers" index="0"]
 position = Vector2( -9, 192 )
 
+[node name="BossBody" parent="Boss" index="2"]
+position = Vector2( -2, 86 )
+
+[node name="ShootingPoint" type="Node2D" parent="Boss/BossBody" index="1"]
+rotation = 1.5708
+
+[node name="Position2D" type="Position2D" parent="Boss/BossBody/ShootingPoint"]
+position = Vector2( 20, 0 )
+
 [node name="EnemySpawner2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 166, -728 )
 enemyType = 1
