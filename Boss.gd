@@ -6,8 +6,9 @@ var currentState = state.COOLDOWN
 onready var enemySpawner = $BossBody/EnemySpawner
 var count = 0
 var cooldown = 2 
-var life = 10
-onready var sprite = $BossBody/Sprite
+var life = 20
+signal healthChanged
+onready var sprite = $BossBody/BossHead
 var playerOnDamageArea = false
 export(PackedScene) var Bullet
 onready var bulletSpawnPoint = $BossBody/ShootingPoint/Position2D
@@ -34,7 +35,7 @@ func StartFight():
 	for i in $ExitBlockers.get_children():
 		i.get_child(1).visible = true
 		i.get_node("CollisionShape2D").set_deferred("disabled", false)
-	$BossBody.visible = true
+	visible = true
 	set_process(true)
 
 func _process(delta):
@@ -88,6 +89,7 @@ func Atack(): #porrada?
 	
 func TakeDamage(dir):
 	life -= 1
+	emit_signal("healthChanged")
 	print(life)
 	if life <= 0:
 		queue_free()

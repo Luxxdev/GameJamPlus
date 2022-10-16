@@ -32,7 +32,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="VerticalMetroidV"
+config/name="BloodyAscent"
 run/main_scene="res://Scenes/TitleScreen.tscn"
 boot_splash/image="res://OPãoSplashLogo.png"
 boot_splash/use_filter=false
