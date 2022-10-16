@@ -155,6 +155,43 @@ position = Vector2( 98, -10 )
 [node name="VisibilityNotifier2D" parent="EnemySpawner2" index="4"]
 scale = Vector2( 1, 15.2 )
 
+[node name="EnemySpawner5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 264, -1528 )
+enemyType = 1
+
+[node name="Area2D" parent="EnemySpawner5" index="0"]
+position = Vector2( -6, 0 )
+
+[node name="EnemyArea" parent="EnemySpawner5/EnemyAreas" index="0"]
+position = Vector2( -768, -24 )
+
+[node name="CollisionShape2D" parent="EnemySpawner5/EnemyAreas/EnemyArea" index="0"]
+position = Vector2( 1, 0 )
+
+[node name="EnemyArea2" parent="EnemySpawner5/EnemyAreas" index="1"]
+position = Vector2( -40, -40 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner5" index="4"]
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner26" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -2416 )
+
+[node name="Area2D" parent="EnemySpawner26" index="0"]
+position = Vector2( -6, 0 )
+
+[node name="EnemyArea" parent="EnemySpawner26/EnemyAreas" index="0"]
+position = Vector2( 108, 32 )
+
+[node name="CollisionShape2D" parent="EnemySpawner26/EnemyAreas/EnemyArea" index="0"]
+position = Vector2( 1, 0 )
+
+[node name="EnemyArea2" parent="EnemySpawner26/EnemyAreas" index="1"]
+position = Vector2( -94, -136 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner26" index="4"]
+scale = Vector2( 1, 15.2 )
+
 [node name="EnemySpawner" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, -154 )
 
@@ -193,29 +230,623 @@ position = Vector2( 0, -30 )
 position = Vector2( 0, 7.99999 )
 scale = Vector2( 1, 15.2 )
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="EnemySpawner4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -1144 )
+
+[node name="CollisionShape2D" parent="EnemySpawner4/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner4/EnemyAreas" index="0"]
+position = Vector2( 72, -80 )
+
+[node name="EnemyArea2" parent="EnemySpawner4/EnemyAreas" index="1"]
+position = Vector2( 80, 112 )
+
+[node name="Enemies" parent="EnemySpawner4" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner4" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 288, -3128 )
+
+[node name="CollisionShape2D" parent="EnemySpawner6/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner6/EnemyAreas" index="0"]
+position = Vector2( -48, -80 )
+
+[node name="EnemyArea2" parent="EnemySpawner6/EnemyAreas" index="1"]
+position = Vector2( 10, -80 )
+
+[node name="Enemies" parent="EnemySpawner6" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner6" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -3912 )
+
+[node name="CollisionShape2D" parent="EnemySpawner7/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner7/EnemyAreas" index="0"]
+position = Vector2( -112, -8 )
+
+[node name="EnemyArea2" parent="EnemySpawner7/EnemyAreas" index="1"]
+position = Vector2( -40, 40 )
+
+[node name="Enemies" parent="EnemySpawner7" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner7" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -3912 )
+
+[node name="CollisionShape2D" parent="EnemySpawner8/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner8/EnemyAreas" index="0"]
+position = Vector2( 8, -64 )
+
+[node name="EnemyArea2" parent="EnemySpawner8/EnemyAreas" index="1"]
+position = Vector2( 96, 8 )
+
+[node name="Enemies" parent="EnemySpawner8" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner8" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner11" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -4704 )
+
+[node name="CollisionShape2D" parent="EnemySpawner11/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner11/EnemyAreas" index="0"]
+position = Vector2( 0, 64 )
+
+[node name="EnemyArea2" parent="EnemySpawner11/EnemyAreas" index="1"]
+position = Vector2( -103, -88 )
+
+[node name="Enemies" parent="EnemySpawner11" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner11" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner13" parent="." instance=ExtResource( 4 )]
+position = Vector2( 157, -5432 )
+
+[node name="CollisionShape2D" parent="EnemySpawner13/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner13/EnemyAreas" index="0"]
+position = Vector2( 11, 112 )
+
+[node name="EnemyArea2" parent="EnemySpawner13/EnemyAreas" index="1"]
+position = Vector2( -109, -30 )
+
+[node name="Enemies" parent="EnemySpawner13" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner13" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner15" parent="." instance=ExtResource( 4 )]
+position = Vector2( 208, -5744 )
+
+[node name="CollisionShape2D" parent="EnemySpawner15/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner15/EnemyAreas" index="0"]
+position = Vector2( 88, -16 )
+
+[node name="EnemyArea2" parent="EnemySpawner15/EnemyAreas" index="1"]
+position = Vector2( -32, -80 )
+
+[node name="Enemies" parent="EnemySpawner15" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner15" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner16" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -6520 )
+
+[node name="CollisionShape2D" parent="EnemySpawner16/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner16/EnemyAreas" index="0"]
+position = Vector2( 120, -48 )
+
+[node name="EnemyArea2" parent="EnemySpawner16/EnemyAreas" index="1"]
+position = Vector2( -112, -48 )
+
+[node name="Enemies" parent="EnemySpawner16" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner16" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner17" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -6520 )
+
+[node name="CollisionShape2D" parent="EnemySpawner17/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner17/EnemyAreas" index="0"]
+position = Vector2( -80, 40 )
+
+[node name="EnemyArea2" parent="EnemySpawner17/EnemyAreas" index="1"]
+position = Vector2( -8, -16 )
+
+[node name="Enemies" parent="EnemySpawner17" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner17" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -3784 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner9/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner9/EnemyAreas" index="0"]
+position = Vector2( 118, 16 )
+
+[node name="EnemyArea2" parent="EnemySpawner9/EnemyAreas" index="1"]
+position = Vector2( 680, 8 )
+
+[node name="Enemies" parent="EnemySpawner9" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner9" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner10" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -4248 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner10/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner10/EnemyAreas" index="0"]
+position = Vector2( 0, -48 )
+
+[node name="EnemyArea2" parent="EnemySpawner10/EnemyAreas" index="1"]
+position = Vector2( 672, -8 )
+
+[node name="Enemies" parent="EnemySpawner10" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner10" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner12" parent="." instance=ExtResource( 4 )]
+position = Vector2( 157, -5432 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner12/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner12/EnemyAreas" index="0"]
+position = Vector2( -45, 8 )
+
+[node name="EnemyArea2" parent="EnemySpawner12/EnemyAreas" index="1"]
+position = Vector2( -701, -136 )
+
+[node name="Enemies" parent="EnemySpawner12" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner12" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner14" parent="." instance=ExtResource( 4 )]
+position = Vector2( 208, -5744 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner14/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner14/EnemyAreas" index="0"]
+position = Vector2( -16, 40 )
+
+[node name="EnemyArea2" parent="EnemySpawner14/EnemyAreas" index="1"]
+position = Vector2( -701, -136 )
+
+[node name="Enemies" parent="EnemySpawner14" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner14" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner18" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -6920 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner18/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner18/EnemyAreas" index="0"]
+position = Vector2( 56, -16 )
+
+[node name="EnemyArea2" parent="EnemySpawner18/EnemyAreas" index="1"]
+position = Vector2( -131, 72 )
+
+[node name="Enemies" parent="EnemySpawner18" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner18" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner19" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, -6920 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner19/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner19/EnemyAreas" index="0"]
+position = Vector2( 114, 72 )
+
+[node name="EnemyArea2" parent="EnemySpawner19/EnemyAreas" index="1"]
+position = Vector2( -56, -30 )
+
+[node name="Enemies" parent="EnemySpawner19" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner19" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner20" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -7504 )
+
+[node name="CollisionShape2D" parent="EnemySpawner20/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner20/EnemyAreas" index="0"]
+position = Vector2( 18, 80 )
+
+[node name="EnemyArea2" parent="EnemySpawner20/EnemyAreas" index="1"]
+position = Vector2( -30, -64 )
+
+[node name="Enemies" parent="EnemySpawner20" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner20" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner21" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -7888 )
+
+[node name="CollisionShape2D" parent="EnemySpawner21/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner21/EnemyAreas" index="0"]
+position = Vector2( 90, -48 )
+
+[node name="EnemyArea2" parent="EnemySpawner21/EnemyAreas" index="1"]
+position = Vector2( -102, -48 )
+
+[node name="Enemies" parent="EnemySpawner21" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner21" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner22" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -7888 )
+
+[node name="CollisionShape2D" parent="EnemySpawner22/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner22/EnemyAreas" index="0"]
+position = Vector2( 90, 56 )
+
+[node name="EnemyArea2" parent="EnemySpawner22/EnemyAreas" index="1"]
+position = Vector2( -102, 56 )
+
+[node name="Enemies" parent="EnemySpawner22" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner22" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner23" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -7888 )
+
+[node name="CollisionShape2D" parent="EnemySpawner23/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner23/EnemyAreas" index="0"]
+position = Vector2( 0, -88 )
+
+[node name="EnemyArea2" parent="EnemySpawner23/EnemyAreas" index="1"]
+position = Vector2( 0, 96 )
+
+[node name="Enemies" parent="EnemySpawner23" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner23" index="4"]
+position = Vector2( 0, 7.99999 )
+scale = Vector2( 1, 15.2 )
+
+[node name="EnemySpawner24" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -8160 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner24/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner24/EnemyAreas" index="0"]
+position = Vector2( -126, 64 )
+
+[node name="EnemyArea2" parent="EnemySpawner24/EnemyAreas" index="1"]
+position = Vector2( 114, -16 )
+
+[node name="Enemies" parent="EnemySpawner24" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner24" index="4"]
+position = Vector2( 0, 16.0001 )
+scale = Vector2( 1, 24.8 )
+
+[node name="EnemySpawner25" parent="." instance=ExtResource( 4 )]
+position = Vector2( 166, -8160 )
+enemyType = 1
+
+[node name="CollisionShape2D" parent="EnemySpawner25/Area2D" index="0"]
+position = Vector2( 0, 8 )
+
+[node name="EnemyArea" parent="EnemySpawner25/EnemyAreas" index="0"]
+position = Vector2( -126, -80 )
+
+[node name="EnemyArea2" parent="EnemySpawner25/EnemyAreas" index="1"]
+position = Vector2( 114, -152 )
+
+[node name="Enemies" parent="EnemySpawner25" index="3"]
+position = Vector2( 0, -30 )
+
+[node name="VisibilityNotifier2D" parent="EnemySpawner25" index="4"]
+position = Vector2( 0, 16.0001 )
+scale = Vector2( 1, 24.8 )
+
+[node name="SlimesPos" type="Node2D" parent="."]
 position = Vector2( 48, 168 )
 rotation = -0.0360082
 scale = Vector2( 1.00829, 1.00829 )
 
-[node name="Slime" parent="Node2D" instance=ExtResource( 3 )]
+[node name="Slime" parent="SlimesPos" instance=ExtResource( 3 )]
 position = Vector2( 130.75, -654.258 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime4" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 242.421, -1880.84 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 frame = 3
 
-[node name="Slime2" parent="Node2D" instance=ExtResource( 3 )]
+[node name="Slime5" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 254.132, -2205.93 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 2
+
+[node name="Slime32" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 136.407, -2464.23 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime6" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 312.915, -2735.75 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 2
+
+[node name="Slime7" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 116.756, -3020.69 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime8" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 123.326, -3203.06 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime9" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 130.752, -3409.22 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime10" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 138.179, -3615.38 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime11" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 178.316, -4288.78 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime12" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 355.612, -4361.78 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime13" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 201.601, -4494.36 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime14" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 386.255, -4551.23 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime15" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 234.951, -5199.76 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 2
+
+[node name="Slime16" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 257.585, -6048.46 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime17" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 383.377, -6234.47 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime18" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 389.946, -6416.84 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime19" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 309.079, -6816.72 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime20" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 265.355, -7366.12 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime21" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 263.927, -7326.47 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime22" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 501.8, -7317.9 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime23" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 503.228, -7357.55 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime24" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 381.738, -7346.04 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 2
+
+[node name="Slime25" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 406.875, -8162.2 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime26" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 410.739, -8297.03 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime27" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 416.72, -8407.96 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Slime28" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 419.88, -8550.76 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime29" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 425.777, -8733.85 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 0
+
+[node name="Slime30" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 432.347, -8916.22 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 3
+
+[node name="Slime31" parent="SlimesPos" instance=ExtResource( 3 )]
+position = Vector2( 439.488, -9114.45 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+frame = 2
+
+[node name="Slime2" parent="SlimesPos" instance=ExtResource( 3 )]
 position = Vector2( 222.014, 7.9978 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
+frame = 3
 
-[node name="Slime3" parent="Node2D" instance=ExtResource( 3 )]
+[node name="Slime3" parent="SlimesPos" instance=ExtResource( 3 )]
 position = Vector2( 1.52588e-05, -1.52588e-05 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
+frame = 3
 
 [editable path="EnemySpawner2"]
+[editable path="EnemySpawner5"]
+[editable path="EnemySpawner26"]
 [editable path="EnemySpawner"]
 [editable path="EnemySpawner3"]
+[editable path="EnemySpawner4"]
+[editable path="EnemySpawner6"]
+[editable path="EnemySpawner7"]
+[editable path="EnemySpawner8"]
+[editable path="EnemySpawner11"]
+[editable path="EnemySpawner13"]
+[editable path="EnemySpawner15"]
+[editable path="EnemySpawner16"]
+[editable path="EnemySpawner17"]
+[editable path="EnemySpawner9"]
+[editable path="EnemySpawner10"]
+[editable path="EnemySpawner12"]
+[editable path="EnemySpawner14"]
+[editable path="EnemySpawner18"]
+[editable path="EnemySpawner19"]
+[editable path="EnemySpawner20"]
+[editable path="EnemySpawner21"]
+[editable path="EnemySpawner22"]
+[editable path="EnemySpawner23"]
+[editable path="EnemySpawner24"]
+[editable path="EnemySpawner25"]
