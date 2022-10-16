@@ -62,7 +62,6 @@ lookahead = 0.001
 [node name="Sprite" type="AnimatedSprite" parent="PathFollow2D"]
 frames = SubResource( 14 )
 animation = "Idle"
-frame = 1
 playing = true
 
 [node name="PlayerFollowCheck" type="Area2D" parent="PathFollow2D/Sprite"]

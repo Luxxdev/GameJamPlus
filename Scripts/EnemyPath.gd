@@ -48,7 +48,7 @@ func _process(delta):
 		if sprite.position == Vector2(0,0):
 			stateControl = state.PATROL
 		if stateControl != state.PREPARE:
-			sprite.set_speed_scale(1)			
+			sprite.set_speed_scale(1)
 			count = 0
 #	if (!loop and unit_offset == 1):
 #		queue_free()
@@ -62,7 +62,7 @@ func Attack():
 #		if $Sprite.global_position == object.global_position:
 			
 func TakeDamage(dir):
-	$PathFollow2D/Sprite/TakeDMG.play()
+	#$PathFollow2D/Sprite/TakeDMG.play()
 	life -= 1
 	atackRecoil = dir
 #	print("ai")
