@@ -267,12 +267,14 @@ func TakeDamage(dir):
 	
 
 func Dash():
+	$Particles2D.emitting = true
 	dashDirection = GetDirection() * dashSpeed
 	animPlayer.play("Attack")
 	dashTimer.start()
 	dashCooldown.start()
 	isDashing = true
 	attackAreaColl.disabled = false
+	#print(lastXMovement)
 	var temp = gravity
 	gravity = reducedGravity
 	invulnerable = true
@@ -283,13 +285,12 @@ func Dash():
 	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
+	yield(get_tree().create_timer(0.5), "timeout")
+	$Particles2D.emitting = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	invulnerable = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	gravity = temp
-	
-	
-	
 
 func HandleAnimations():
 	sprite.rotation_degrees = 0
