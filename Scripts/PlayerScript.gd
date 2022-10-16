@@ -51,11 +51,9 @@ func _physics_process(_delta):
 	moveDir = Vector2(0,0)
 	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
 		moveDir.x = 1
-		lastXMovement = 1
 		move()
 	elif Input.is_action_pressed("ui_left") and !falling and inputEnabled:
 		moveDir.x = -1
-		lastXMovement = -1
 		move()
 	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and !falling and inputEnabled:
 		moveDir.y = -1
@@ -65,6 +63,12 @@ func _physics_process(_delta):
 		moveDir.y = 1
 #		moveDir.x = 0
 		move()
+	
+	if motion.x > 0.1:
+		lastXMovement = 1
+	elif motion.x < -0.1:
+		lastXMovement = -1
+	
 		
 	if moveDir == Vector2(0,0):
 #		if is_on_floor():
@@ -131,6 +135,8 @@ func _physics_process(_delta):
 	else:
 		motion = move_and_slide(motion, UP)
 	HandleAnimations()
+	print(motion.x)
+	
 
 func move():
 #	if invertControls:
@@ -236,39 +242,64 @@ func Dash():
 	canJump = false #IF não acertar um inimigo
 
 func HandleAnimations():
-	print(is_on_floor())
-	if moveDir.x > 0 and is_on_floor():
+	if Input.is_action_pressed("ui_right") and is_on_floor():
 		animPlayer.play("Run")
 		sprite.flip_h = false
-	elif moveDir.x < 0 and is_on_floor():
+	elif Input.is_action_pressed("ui_left") and is_on_floor():
 		animPlayer.play("Run")
 		sprite.flip_h = true
 	elif is_on_floor():
 		animPlayer.play("Idle")
-		sprite.flip_v = false
+		if lastXMovement > 0:
+			sprite.flip_h = false
+		elif lastXMovement < 0:
+			sprite.flip_h = true
+			
 	elif _check_is_valid_wall():
 		if wallDirection == -1:
-			animPlayer.play("Climb")
 			sprite.flip_h = false
-		elif wallDirection == 1:
 			animPlayer.play("Climb")
+			print("toquei")
+		elif wallDirection == 1:
 			sprite.flip_h = true
-		if moveDir.y > 0:
+			animPlayer.play("Climb")
+			print("toquei")
+			
+		if Input.is_action_pressed("ui_down"):
 			sprite.flip_v = true
-		elif moveDir.y < 0:
+			animPlayer.play("Climb")
+		elif Input.is_action_pressed("ui_up"):
+			animPlayer.play("Climb")
 			sprite.flip_v = false
+		else:
+			yield(get_tree().create_timer(0.01), "timeout")
+			animPlayer.stop()
 	elif raycastUp.is_colliding():
-		animPlayer.play("Climb")
 		if moveDir.x > 0 || lastXMovement == 1:
 				sprite.rotation_degrees = 90
 				sprite.flip_h = true
 		elif moveDir.x < 0 || lastXMovement == -1:
 				sprite.rotation_degrees = -90
 				sprite.flip_h = false
+		animPlayer.play("Climb")	
+		if Input.is_action_pressed("ui_left") || Input.is_action_pressed("ui_right"):
+			animPlayer.play("Climb")
+		else:
+			yield(get_tree().create_timer(0.01), "timeout")
+			animPlayer.stop()
 	else:
 		animPlayer.play("Jump")
 		sprite.flip_v = false
 		sprite.rotation_degrees = 0
+		if motion.x > 0:
+			sprite.flip_h = false
+		elif motion.x < 0:
+			sprite.flip_h = true
+		elif lastXMovement == 1:
+			sprite.flip_h = false
+		elif lastXMovement == -1:
+			sprite.flip_h = true
+		
 
 func _on_DashTimer_timeout():
 	isDashing = false
