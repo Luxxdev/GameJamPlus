@@ -30,6 +30,7 @@ var stunned = false
 var falling = false
 var lastXMovement = 1
 var reducedGravity = 5
+var normalGravity = 20
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -55,6 +56,7 @@ func _physics_process(_delta):
 #		currentCoyote += _delta
 #		if currentCoyote > maxCoyote:
 #			canJump = false
+	print(gravity)
 	moveDir = Vector2(0,0)
 	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
 		moveDir.x = 1
@@ -150,7 +152,6 @@ func _physics_process(_delta):
 		motion = move_and_slide(motion, UP)
 	HandleAnimations()
 	
-
 func move():
 #	if invertControls:
 #		move_dir *= -1
@@ -181,7 +182,7 @@ func Jump():
 	if canJump:
 		if _check_is_valid_wall():
 			jumpDirection.x = wallDirection
-			motion.x = maxSpeed*1.5*(jumpDirection.x)
+			motion.x = maxSpeed*5*(jumpDirection.x)
 		else:
 			jumpDirection.x = moveDir.x * 2
 			motion.x = maxSpeed*(jumpDirection.x)
@@ -267,7 +268,7 @@ func TakeDamage(dir):
 	
 
 func Dash():
-	$Particles2D.emitting = true
+#	$Particles2D.emitting = true
 	dashDirection = GetDirection() * dashSpeed
 	animPlayer.play("Attack")
 	dashTimer.start()
@@ -275,7 +276,6 @@ func Dash():
 	isDashing = true
 	attackAreaColl.disabled = false
 	#print(lastXMovement)
-	var temp = gravity
 	gravity = reducedGravity
 	invulnerable = true
 	if lastXMovement == -1:
@@ -285,12 +285,11 @@ func Dash():
 	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
-	yield(get_tree().create_timer(0.5), "timeout")
-	$Particles2D.emitting = false
+#	$Particles2D.emitting = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	invulnerable = false
 	yield(get_tree().create_timer(0.3), "timeout")
-	gravity = temp
+	gravity = normalGravity
 
 func HandleAnimations():
 	sprite.rotation_degrees = 0
