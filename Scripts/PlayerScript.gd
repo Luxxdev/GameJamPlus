@@ -378,6 +378,8 @@ func _on_AttackArea_area_entered(area):
 			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
 		elif area.is_in_group("Boss"):
 			area.get_parent().get_parent().TakeDamage(dashDirection)
+			Dash()
+			dashDirection = -dashDirection
 		else:
 			area.get_parent().TakeDamage(dashDirection)
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")

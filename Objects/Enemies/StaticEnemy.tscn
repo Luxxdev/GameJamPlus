@@ -4,18 +4,22 @@
 [ext_resource path="res://Scripts/StaticEnemy.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 32, 32, 32 )
 
@@ -76,7 +80,7 @@ position = Vector2( 0, -1.40945 )
 rotation = -0.0360082
 scale = Vector2( 1.00829, 1.00829 )
 frames = SubResource( 6 )
-frame = 1
+frame = 3
 playing = true
 script = ExtResource( 2 )
 
@@ -90,3 +94,5 @@ shape = SubResource( 1 )
 anims/slimeWobble = SubResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

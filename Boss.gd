@@ -8,6 +8,8 @@ var count = 0
 var cooldown = 5
 var life = 10
 onready var sprite = $BossBody/Sprite
+var playerOnDamageArea = false
+export(PackedScene) var Bullet
 
 func _ready():
 	set_process(false)
@@ -33,12 +35,12 @@ func StartFight():
 	$BossBody.visible = true
 	set_process(true)
 
-
 func _process(delta):
 	match currentState:
 		state.ATTACK:
 			print("atk1")
 			cooldown = 1
+#			Shoot()
 			currentState = state.COOLDOWN
 		state.ATTACK2:
 			print("atk2")
@@ -52,27 +54,42 @@ func _process(delta):
 		state.COOLDOWN:
 			count += delta
 			if count > cooldown:
-				currentState = state.SPAWN
+				pass
+				currentState = state.ATTACK
 			
 	if currentState != state.COOLDOWN:
 		count = 0
-		
+	if playerOnDamageArea and !player.isDashing:
+		var dir
+		if sprite.global_position.x - player.global_position.x > 0:
+			dir = -1
+		else:
+			dir = 1
+		player.TakeDamage(dir, true)
+		playerOnDamageArea = false
+
 func Shoot(): # jogar oito bolas de fogo
-	pass
+	var dir = Vector2.RIGHT
+	for i in range(8):
+		var bulletInstance = Bullet.instance()
+		bulletInstance.rotation = dir.rotated(45*i)
+		bulletInstance.global_position = $Position2D.global_position
+		bulletInstance.velocity = 100
+		get_parent().get_parent().get_parent().add_child(bulletInstance)
 	
 func Atack(): #porrada?
 	pass
 	
 func TakeDamage(dir):
 	life -= 1
+	print(life)
 	if life <= 0:
 		queue_free()
 
 func _on_DamageArea_body_entered(body):
-	if "Player" in body.name and !player.isDashing:
-		var dir
-		if sprite.global_position.x - player.global_position.x > 0:
-			dir = -1
-		else:
-			dir = 1
-		player.TakeDamage(dir)
+	if "Player" in body.name:
+		playerOnDamageArea = true
+
+func _on_DamageArea_body_exited(body):
+	if "Player" in body.name:
+		playerOnDamageArea = false
