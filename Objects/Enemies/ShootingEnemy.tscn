@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ShootingEnemy.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Enemies/images/ini2.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Bullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -14,7 +15,7 @@ region = Rect2( 32, 0, 32, 32 )
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
+"loop": false,
 "name": "default",
 "speed": 10.0
 } ]
@@ -25,6 +26,7 @@ radius = 310.0
 [node name="ShootingEnemy" type="AnimatedSprite"]
 frames = SubResource( 4 )
 script = ExtResource( 1 )
+Bullet = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
@@ -37,8 +39,9 @@ wait_time = 5.0
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
 enabled = true
-cast_to = Vector2( 310, 0 )
+cast_to = Vector2( 200, 0 )
 collision_mask = 2
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
@@ -47,5 +50,6 @@ position = Vector2( -2.86102e-06, 2.86102e-06 )
 scale = Vector2( 3.25, 3.25 )
 process_parent = true
 
+[connection signal="animation_finished" from="." to="." method="_on_ShootingEnemy_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

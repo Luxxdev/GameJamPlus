@@ -45,6 +45,7 @@ func _process(delta):
 
 func Attack():
 	if object != null:
+		sprite.play("Attack")
 		sprite.global_position = sprite.global_position.move_toward(object.position, 15)
 #		if $Sprite.global_position == object.global_position:
 			

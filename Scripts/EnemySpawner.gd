@@ -1,7 +1,7 @@
 extends Node2D
 
 
-onready var enemy = load("res://Objects/EnemyPath.tscn")
+onready var enemy = load("res://Objects/MovingEnemy.tscn")
 onready var areaSize = $Area2D/CollisionShape2D.get_shape().get_extents()
 onready var timer = $SpawnTimer
 #onready var enemyArea = $EnemyAreas/EnemyArea
