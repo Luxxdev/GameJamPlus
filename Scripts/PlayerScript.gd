@@ -1,9 +1,6 @@
 extends KinematicBody2D
 class_name Player
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 const UP = Vector2(0,-1)
 var motion = Vector2()
 var gravity = 20
@@ -36,6 +33,8 @@ var normalGravity = 20
 var jumpDirection = Vector2(0,-1)
 var wallDirection = 0
 var maxCameraOffset = 100
+var health = 10
+signal healthChanged
 onready var sprite = $Sprite
 onready var animPlayer = $AnimationPlayer
 onready var wallraycast = $WallRaycast
@@ -56,7 +55,7 @@ func _physics_process(_delta):
 #		currentCoyote += _delta
 #		if currentCoyote > maxCoyote:
 #			canJump = false
-	print(gravity)
+	#print(gravity)
 	moveDir = Vector2(0,0)
 	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
 		moveDir.x = 1
@@ -257,15 +256,17 @@ func TakeDamage(dir):
 			dir *= -1
 		stunned = true
 		falling = true
+		health -= 1
 		motion.y = 300 * jumpDirection.y
 		motion.x = 100 * dir
 		invulnerable = true
+		emit_signal("healthChanged")
 		yield(get_tree().create_timer(1), "timeout")
 		stunned = false
 		canJump = true
 		invulnerable = false
-		
-	
+		if health <= 0:
+			get_tree().change_scene("res://Scenes/GameOver.tscn")
 
 func Dash():
 #	$Particles2D.emitting = true
@@ -362,7 +363,7 @@ func _on_DashTimer_timeout():
 	pass # Replace with function body.
 
 func _on_AttackArea_area_entered(area):
-	print(area.get_groups())
+	#print(area.get_groups())
 	if area.is_in_group("DashTarget"):
 		if area.is_in_group("MovingEnemy"):
 			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
@@ -379,3 +380,4 @@ func _on_DetectionArea_area_entered(area):
 func _on_DetectionArea_area_exited(area):
 	if area.is_in_group("DashTarget"):
 		dashTarget.erase(area)
+

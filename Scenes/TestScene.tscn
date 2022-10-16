@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/tilemap/tileset_tilemap.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/HPBar.gd" type="Script" id=3]
 [ext_resource path="res://Objects/EnemySpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://CRT_shader.tres" type="Shader" id=5]
 
@@ -29,6 +30,46 @@ shader_param/clip_warp = false
 shader_param/vignette_intensity = 0.4
 shader_param/vignette_opacity = 0.5
 
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0, 0.147239, 0.429448, 0.533742, 0.901841, 1 )
+colors = PoolColorArray( 0.92549, 0.0470588, 0.0470588, 0.176471, 0.92549, 0.0470588, 0.0470588, 0.6, 0.292969, 0.0102997, 0.0102997, 1, 0.172549, 0.0313726, 0.0313726, 1, 0.92549, 0.0470588, 0.0470588, 0.6, 0.92549, 0.0470588, 0.0470588, 0.0745098 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 11 )
+width = 8
+
+[sub_resource type="ImageTexture" id=13]
+
+[sub_resource type="ImageTexture" id=14]
+
+[sub_resource type="ImageTexture" id=15]
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.054902, 0.00784314, 0.00784314, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.0666667, 0.00392157, 0.00392157, 1 )
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.184314, 0.0156863, 0.0156863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0627451, 0.00392157, 0.00392157, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -41,6 +82,24 @@ input_pass_on_modal_close_click = false
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="HBoxContainer" type="VSlider" parent="CanvasLayer"]
+margin_left = 3.0
+margin_top = 15.0
+margin_right = 26.0
+margin_bottom = 114.0
+custom_icons/tick = SubResource( 12 )
+custom_icons/grabber_disabled = SubResource( 13 )
+custom_icons/grabber_highlight = SubResource( 14 )
+custom_icons/grabber = SubResource( 15 )
+custom_styles/slider = SubResource( 9 )
+custom_styles/grabber_area = SubResource( 10 )
+step = 5.0
+value = 100.0
+editable = false
+scrollable = false
+tick_count = 11
+script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 160, 265 )
