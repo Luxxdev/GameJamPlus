@@ -96,4 +96,8 @@ func _on_DamageArea_body_entered(body):
 		canAttack = false
 		stateControl = state.RECOIL
 #		print("voltou")
-		
+		yield(get_tree().create_timer(1), "timeout")
+		canAttack = true
+
+func _on_Sprite_animation_finished():
+	sprite.play("Idle")
