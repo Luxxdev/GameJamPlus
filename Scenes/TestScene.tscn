@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/tilemap/tileset_tilemap.tres" type="TileSet" id=2]
+[ext_resource path="res://Objects/Enemies/ShootingEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/EnemySpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://CRT_shader.tres" type="Shader" id=5]
 
@@ -29,15 +30,6 @@ shader_param/clip_warp = false
 shader_param/vignette_intensity = 0.4
 shader_param/vignette_opacity = 0.5
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 391.5 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 508, 55 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 56.5, 36.625 )
-
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -49,7 +41,7 @@ anchor_bottom = 1.0
 input_pass_on_modal_close_click = false
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 57, 220 )
+position = Vector2( 149, 269 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 1, 0 )
@@ -68,25 +60,6 @@ drag_margin_bottom = 0.3
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_mask = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 12, -150.5 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 310, -151 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 511, 297 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 161, 111 )
-shape = SubResource( 3 )
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 24, 24 )
@@ -104,5 +77,8 @@ position = Vector2( -111, -3 )
 
 [node name="EnemyArea2" parent="EnemySpawner/EnemyAreas" index="1"]
 position = Vector2( 77, 0 )
+
+[node name="ShootingEnemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 159, -103 )
 
 [editable path="EnemySpawner"]

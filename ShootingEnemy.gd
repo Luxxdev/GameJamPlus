@@ -7,7 +7,7 @@ class_name Enemy
 var PlayerInArea = false
 var target = null
 onready var ray = $RayCast2D
-
+export(PackedScene) var Bullet
 
 func _process(delta):
 	if PlayerInArea:
@@ -32,8 +32,6 @@ func Shoot():
 	playing = true
 	print("tiro")
 	$ShootDelay.start()
-	yield(get_tree().create_timer(0.1), "timeout")
-	frame = 0
 
 #func GenerateRaycasts():
 #	var rayCount = angleConeOfVision / angleBetweenRays
@@ -41,3 +39,7 @@ func Shoot():
 #		var ray = RayCast2D.new()
 #		var angle = angleBetweenRays * (i - rayCount / 2.0)
 #		ray.cast_to = Vector2.UP.rotated(angle) * maxViewDist
+
+func _on_ShootingEnemy_animation_finished():
+	playing = false
+	frame = 0
