@@ -219,6 +219,7 @@ class MyCustomSorter:
 		return a[1] < b[1]
 			
 func TakeDamage(dir):
+	sprite.modulate = Color(1,1,1,1)
 	if isDashing:
 		pass
 	else:
@@ -228,7 +229,6 @@ func TakeDamage(dir):
 		motion.x = 200 * dir
 		yield(get_tree().create_timer(0.5), "timeout")
 		stunned = false
-	
 
 func Dash():
 	dashDirection = GetDirection() * dashSpeed

@@ -92,3 +92,6 @@ func _on_DamageArea_body_entered(body):
 #		print("voltou")
 		yield(get_tree().create_timer(1), "timeout")
 		canAttack = true
+
+func _on_Sprite_animation_finished():
+	sprite.play("Idle")

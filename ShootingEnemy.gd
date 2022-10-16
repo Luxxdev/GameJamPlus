@@ -16,6 +16,10 @@ func _process(delta):
 		if ray.get_collider() is Player:
 			if $ShootDelay.is_stopped():
 				Shoot()
+	if global_rotation_degrees >= 90 || global_rotation_degrees <= -90:
+		flip_v = true
+	else:
+		flip_v = false
 
 
 func _on_Area2D_body_entered(body):
@@ -31,6 +35,10 @@ func _on_Area2D_body_exited(body):
 func Shoot():
 	playing = true
 	print("tiro")
+	var bulletInstance = Bullet.instance()
+	bulletInstance.global_position = $Position2D.global_position
+	bulletInstance.velocity = target.global_position - bulletInstance.position + Vector2(target.moveDir.x*100,target.moveDir.y*100)
+	get_parent().add_child(bulletInstance)
 	$ShootDelay.start()
 
 #func GenerateRaycasts():
