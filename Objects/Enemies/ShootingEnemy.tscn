@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://ShootingEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/ShootingEnemy.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Enemies/images/ini2.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Bullet.tscn" type="PackedScene" id=3]
 

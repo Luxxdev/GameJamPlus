@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "AnimatedSprite",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://ShootingEnemy.gd"
+"path": "res://Scripts/ShootingEnemy.gd"
 }, {
 "base": "Node",
 "class": "EnemyResource",
