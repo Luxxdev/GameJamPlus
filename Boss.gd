@@ -12,15 +12,16 @@ var playerOnDamageArea = false
 export(PackedScene) var Bullet
 onready var bulletSpawnPoint = $BossBody/ShootingPoint/Position2D
 
+
 func _ready():
 	set_process(false)
 
 enum state{
+	COOLDOWN,
 	ATTACK,
 	ATTACK2,
-	COOLDOWN,
-	SPAWN,
 	PREPARE
+	SPAWN,
 }
 
 func _on_StartFightArea_body_entered(body):
@@ -40,22 +41,25 @@ func _process(delta):
 	match currentState:
 		state.ATTACK:
 			print("atk1")
-			cooldown = 1
+			cooldown = 5
 			Shoot()
 			currentState = state.COOLDOWN
 		state.ATTACK2:
 			print("atk2")
-			cooldown = 2
+			cooldown = 5
 			currentState = state.COOLDOWN
 		state.SPAWN:
 			print("spawn")
-			enemySpawner.set_spawn_position()
-			cooldown = 3
+			if enemySpawner.enemies.get_child_count() == 0:
+				cooldown = 0
+			else:
+				enemySpawner.set_spawn_position()
+				cooldown = 5
 			currentState = state.COOLDOWN
 		state.COOLDOWN:
 			count += delta
 			if count > cooldown:
-				currentState = state.ATTACK
+				currentState = randi() % 4 + 1
 			
 	if currentState != state.COOLDOWN:
 		count = 0
