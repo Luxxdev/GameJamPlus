@@ -211,7 +211,7 @@ func GetDirection():
 			temp.append([i, i.global_position.distance_to(global_position)])
 		temp.sort_custom(MyCustomSorter, "sort_ascending_by_second_element")
 		direction = (temp[0][0].global_position - global_position).normalized()
-	print(direction)
+	#print(direction)
 	return direction
 
 class MyCustomSorter:
@@ -231,13 +231,14 @@ func TakeDamage(dir):
 		stunned = false
 
 func Dash():
+	$Particles2D.emitting = true
 	dashDirection = GetDirection() * dashSpeed
 	animPlayer.play("Attack")
 	dashTimer.start()
 	dashCooldown.start()
 	isDashing = true
 	attackAreaColl.disabled = false
-	print(lastXMovement)
+	#print(lastXMovement)
 	if lastXMovement == -1:
 		pass
 	elif lastXMovement == 1:
@@ -245,6 +246,8 @@ func Dash():
 	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
+	yield(get_tree().create_timer(0.5), "timeout")
+	$Particles2D.emitting = false
 
 func HandleAnimations():
 	if isDashing:
