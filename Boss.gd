@@ -6,6 +6,8 @@ var currentState = state.COOLDOWN
 onready var enemySpawner = $BossBody/EnemySpawner
 var count = 0
 var cooldown = 5
+var life = 10
+onready var sprite = $BossBody/Sprite
 
 func _ready():
 	set_process(false)
@@ -54,3 +56,23 @@ func _process(delta):
 			
 	if currentState != state.COOLDOWN:
 		count = 0
+		
+func Shoot(): # jogar oito bolas de fogo
+	pass
+	
+func Atack(): #porrada?
+	pass
+	
+func TakeDamage(dir):
+	life -= 1
+	if life <= 0:
+		queue_free()
+
+func _on_DamageArea_body_entered(body):
+	if "Player" in body.name and !player.isDashing:
+		var dir
+		if sprite.global_position.x - player.global_position.x > 0:
+			dir = -1
+		else:
+			dir = 1
+		player.TakeDamage(dir)

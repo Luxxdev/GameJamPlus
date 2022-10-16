@@ -258,11 +258,11 @@ class MyCustomSorter:
 	static func sort_ascending_by_second_element(a, b):
 		return a[1] < b[1]
 			
-func TakeDamage(dir):
-	if invulnerable:
+func TakeDamage(dir, boss = false):
+	if invulnerable and !boss:
 		pass
 	else:
-		sprite.self_modulate = Color(1,0,0,1)	
+		sprite.self_modulate = Color(1,0,0,1)
 		if _check_is_valid_wall():
 			dir *= -1
 		stunned = true
@@ -273,6 +273,7 @@ func TakeDamage(dir):
 		invulnerable = true
 		emit_signal("healthChanged")
 		yield(get_tree().create_timer(1), "timeout")
+		sprite.self_modulate = Color(1,1,1,1)		
 		stunned = false
 		canJump = true
 		invulnerable = false
@@ -375,6 +376,8 @@ func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
 		if area.is_in_group("MovingEnemy"):
 			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
+		elif area.is_in_group("Boss"):
+			area.get_parent().get_parent().TakeDamage(dashDirection)
 		else:
 			area.get_parent().TakeDamage(dashDirection)
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
