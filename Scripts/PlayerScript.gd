@@ -35,6 +35,7 @@ var wallDirection = 0
 var maxCameraOffset = 100
 var health = 10
 signal healthChanged
+onready var tween = $Tween
 onready var sprite = $Sprite
 onready var animPlayer = $AnimationPlayer
 onready var wallraycast = $WallRaycast
@@ -281,8 +282,10 @@ func TakeDamage(dir, boss = false):
 			get_tree().change_scene("res://Scenes/GameOver.tscn")
 
 func Dash():
-#	$Particles2D.emitting = true
 	dashDirection = GetDirection() * dashSpeed
+	$BloodShred.rotation =dashDirection.angle()
+	$BloodShred.modulate = Color(1,1,1,1)
+	$BloodShred.visible = true
 	animPlayer.play("Attack")
 	dashTimer.start()
 	dashCooldown.start()
@@ -300,6 +303,8 @@ func Dash():
 	canJump = false #IF não acertar um inimigo
 #	$Particles2D.emitting = false
 	yield(get_tree().create_timer(0.3), "timeout")
+	tween.interpolate_property($BloodShred,"modulate",Color(1,1,1,1),Color(1,1,1,0),0.1,Tween.TRANS_QUAD,Tween.EASE_IN)
+	tween.start()
 	invulnerable = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	gravity = normalGravity
