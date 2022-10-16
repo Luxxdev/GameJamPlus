@@ -20,10 +20,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 14, 15 ]
+"values": [ 15 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -93,7 +93,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 104.335
+radius = 82.5651
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_layer = 2
@@ -104,11 +104,13 @@ position = Vector2( 5.36442e-07, -1.07288e-06 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
+frame = 14
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AttackArea" type="Area2D" parent="Sprite"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/AttackArea"]
 position = Vector2( -7.15256e-07, 0.500002 )
@@ -116,6 +118,7 @@ shape = SubResource( 5 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
@@ -127,12 +130,14 @@ anims/Jump = SubResource( 2 )
 anims/Run = SubResource( 4 )
 
 [node name="RayCastUp" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( 0, -2.5 )
 rotation = 3.14159
 enabled = true
 cast_to = Vector2( -2.66194e-05, 10.5 )
 
 [node name="WallRaycast" type="Node2D" parent="."]
+visible = false
 
 [node name="RayCastSides" type="RayCast2D" parent="WallRaycast"]
 position = Vector2( 9, -7 )
