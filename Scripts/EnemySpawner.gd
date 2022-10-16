@@ -4,7 +4,7 @@ extends Node2D
 onready var enemy = load("res://Objects/EnemyPath.tscn")
 onready var areaSize = $Area2D/CollisionShape2D.get_shape().get_extents()
 onready var timer = $SpawnTimer
-onready var enemyArea = $EnemyArea
+#onready var enemyArea = $EnemyAreas/EnemyArea
 var timerDefaultWaitTime
 var canSpawn = true
 export var maxEnemies = 5

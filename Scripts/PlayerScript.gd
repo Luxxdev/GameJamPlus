@@ -135,7 +135,6 @@ func _physics_process(_delta):
 	else:
 		motion = move_and_slide(motion, UP)
 	HandleAnimations()
-	print(motion.x)
 	
 
 func move():
@@ -259,11 +258,9 @@ func HandleAnimations():
 		if wallDirection == -1:
 			sprite.flip_h = false
 			animPlayer.play("Climb")
-			print("toquei")
 		elif wallDirection == 1:
 			sprite.flip_h = true
 			animPlayer.play("Climb")
-			print("toquei")
 			
 		if Input.is_action_pressed("ui_down"):
 			sprite.flip_v = true

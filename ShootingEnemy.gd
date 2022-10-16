@@ -1,4 +1,4 @@
-extends Sprite
+extends AnimatedSprite
 class_name Enemy
 
 #var angleConeOfVision = deg2rad(30.0)
@@ -29,8 +29,11 @@ func _on_Area2D_body_exited(body):
 		target = null
 
 func Shoot():
+	playing = true
 	print("tiro")
 	$ShootDelay.start()
+	yield(get_tree().create_timer(0.1), "timeout")
+	frame = 0
 
 #func GenerateRaycasts():
 #	var rayCount = angleConeOfVision / angleBetweenRays
