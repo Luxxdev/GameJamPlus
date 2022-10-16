@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/images/mainchar.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerScript.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 39.4667, 34.6667 )
+extents = Vector2( 8, 11.5 )
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 8.0
+height = 6.0
 
 [sub_resource type="Animation" id=9]
 resource_name = "Attack"
@@ -27,7 +29,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=8]
 resource_name = "Climb"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -43,17 +44,56 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "Idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 0 ]
+}
 
 [sub_resource type="Animation" id=2]
-resource_name = "Fall"
+resource_name = "Jump"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 14 ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "Run"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 12, 13, 2 ]
+}
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 104.335
-
-[sub_resource type="AnimationNodeAnimation" id=7]
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_layer = 2
@@ -64,7 +104,6 @@ position = Vector2( 5.36442e-07, -1.07288e-06 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
-frame = 14
 __meta__ = {
 "_edit_lock_": true
 }
@@ -72,6 +111,7 @@ __meta__ = {
 [node name="AttackArea" type="Area2D" parent="Sprite"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/AttackArea"]
+position = Vector2( -7.15256e-07, 0.500002 )
 shape = SubResource( 5 )
 disabled = true
 
@@ -90,21 +130,21 @@ anims/Run = SubResource( 4 )
 position = Vector2( 0, -2.5 )
 rotation = 3.14159
 enabled = true
-cast_to = Vector2( 0, 18.204 )
+cast_to = Vector2( -2.66194e-05, 10.5 )
 
 [node name="WallRaycast" type="Node2D" parent="."]
 
 [node name="RayCastSides" type="RayCast2D" parent="WallRaycast"]
-position = Vector2( 10.2442, -13.1966 )
+position = Vector2( 9, -7 )
 rotation = 1.5708
 enabled = true
-cast_to = Vector2( -0.014164, 20.5488 )
+cast_to = Vector2( 6.48499e-05, 18 )
 
 [node name="RayCastSides2" type="RayCast2D" parent="WallRaycast"]
-position = Vector2( 10.1371, 11.0243 )
+position = Vector2( 9, 5 )
 rotation = 1.5708
 enabled = true
-cast_to = Vector2( -0.0271568, 20.7394 )
+cast_to = Vector2( 6.48499e-05, 18 )
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.15
@@ -123,10 +163,6 @@ shape = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 7 )
-anim_player = NodePath("../AnimationPlayer")
 
 [connection signal="area_entered" from="Sprite/AttackArea" to="." method="_on_AttackArea_area_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]

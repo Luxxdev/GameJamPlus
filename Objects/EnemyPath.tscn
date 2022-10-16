@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/EnemyPath.gd" type="Script" id=2]
@@ -16,6 +16,9 @@ radius = 87.0057
 
 [sub_resource type="CircleShape2D" id=8]
 radius = 28.1111
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 32.5, 32.5 )
 
 [node name="Path2D" type="Path2D"]
 position = Vector2( 69.0001, 120 )
@@ -46,6 +49,13 @@ shape = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Sprite/DamageArea"]
 shape = SubResource( 8 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="PathFollow2D/Sprite"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Sprite/KinematicBody2D"]
+position = Vector2( 0.499771, 0 )
+shape = SubResource( 9 )
 
 [connection signal="body_entered" from="PathFollow2D/Sprite/PlayerFollowCheck" to="." method="_on_PlayerFollowCheck_body_entered"]
 [connection signal="body_exited" from="PathFollow2D/Sprite/PlayerFollowCheck" to="." method="_on_PlayerFollowCheck_body_exited"]

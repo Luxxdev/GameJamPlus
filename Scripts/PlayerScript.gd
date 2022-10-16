@@ -27,6 +27,7 @@ var isDashing = false
 var dashTarget = []
 var stunned = false
 var falling = false
+var lastXMovement = 0
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -48,16 +49,13 @@ func _physics_process(_delta):
 #		if currentCoyote > maxCoyote:
 #			canJump = false
 	moveDir = Vector2(0,0)
-#	if !canMove:
-#		if is_on_floor():
-#			animPlayer.play("Idle")
-#		else:
-#			animPlayer.play("Fall")
 	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
 		moveDir.x = 1
+		lastXMovement = 1
 		move()
 	elif Input.is_action_pressed("ui_left") and !falling and inputEnabled:
 		moveDir.x = -1
+		lastXMovement = -1
 		move()
 	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and !falling and inputEnabled:
 		moveDir.y = -1
@@ -69,15 +67,12 @@ func _physics_process(_delta):
 		move()
 		
 	if moveDir == Vector2(0,0):
-		if is_on_floor():
-			animPlayer.play("Idle")
-		else:
-			animPlayer.play("Fall")
-			
+#		if is_on_floor():
+#			animPlayer.play("Idle")
+#		elif !is_on_floor() and !_check_is_valid_wall():
+#			animPlayer.play("Jump")
 		noMovementInput = true
 		walking = false
-#		elif _check_is_valid_wall():
-#			animPlayer.play("IdleWall")
 	
 	if _check_is_valid_wall() or raycastUp.is_colliding():
 		canJump = true
@@ -109,7 +104,6 @@ func _physics_process(_delta):
 		Dash()
 	if Input.is_action_just_pressed("Jump") and !falling and inputEnabled:
 		Jump()
-	
 	if is_on_floor() or raycastUp.is_colliding():
 		canJump = true
 		canDash = true
@@ -119,12 +113,16 @@ func _physics_process(_delta):
 			motion.x = lerp(motion.x, 0, 0.2)
 		if raycastUp.is_colliding():
 			jumpDirection.y = 0.5
+			motion.y -= 1
+		else:
+			sprite.rotation_degrees = 0
 		if !stunned and falling:
 			falling = false
 			
 	else:
+		sprite.flip_h = false
+		sprite.rotation_degrees = 0
 		jumpDirection.y = -1
-		
 	
 	if _check_is_valid_wall() and noMovementInput:
 		motion.y = lerp(motion.y, 0, 0.2)
@@ -132,6 +130,7 @@ func _physics_process(_delta):
 		motion = move_and_slide(dashDirection, UP)
 	else:
 		motion = move_and_slide(motion, UP)
+	HandleAnimations()
 
 func move():
 #	if invertControls:
@@ -139,21 +138,23 @@ func move():
 	if moveDir.x > 0 and motion.x < maxSpeed:
 		motion.x = min(motion.x+acceleration, maxSpeed)
 		sprite.flip_h = false
-		animPlayer.play("Run")
 	elif moveDir.x < 0 and motion.x > -maxSpeed:
 		motion.x = max(motion.x-acceleration, -maxSpeed)
 		sprite.flip_h = true
-		animPlayer.play("Run")
 	if moveDir.y > 0:
 		motion.y = min(motion.y+acceleration, maxSpeed)
-		animPlayer.play("Climb")
-		#rodar o player na parede? 90º
 		sprite.flip_v = true
+		if wallDirection > 0:
+			sprite.flip_h = true
+		elif wallDirection < 1:
+			sprite.flip_h = false
 	elif moveDir.y < 0:
 		motion.y = max(motion.y-acceleration, -maxSpeed)
 		sprite.flip_v = false
-		animPlayer.play("Climb")
-		# rodar -90º?
+		if wallDirection > 0:
+			sprite.flip_h = true
+		elif wallDirection < 1:
+			sprite.flip_h = false
 	noMovementInput = false
 	walking = true
 
@@ -189,7 +190,6 @@ func _check_is_valid_wall():
 	return false
 	
 func GetDirection():
-	print("foi")
 	var direction = Vector2(0,0)
 	if dashTarget == []:
 		direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
@@ -226,6 +226,7 @@ func TakeDamage(dir):
 
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
+	animPlayer.play("Attack")
 	dashTimer.start()
 	dashCooldown.start()
 	isDashing = true
@@ -233,6 +234,41 @@ func Dash():
 	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
+
+func HandleAnimations():
+	print(is_on_floor())
+	if moveDir.x > 0 and is_on_floor():
+		animPlayer.play("Run")
+		sprite.flip_h = false
+	elif moveDir.x < 0 and is_on_floor():
+		animPlayer.play("Run")
+		sprite.flip_h = true
+	elif is_on_floor():
+		animPlayer.play("Idle")
+		sprite.flip_v = false
+	elif _check_is_valid_wall():
+		if wallDirection == -1:
+			animPlayer.play("Climb")
+			sprite.flip_h = false
+		elif wallDirection == 1:
+			animPlayer.play("Climb")
+			sprite.flip_h = true
+		if moveDir.y > 0:
+			sprite.flip_v = true
+		elif moveDir.y < 0:
+			sprite.flip_v = false
+	elif raycastUp.is_colliding():
+		animPlayer.play("Climb")
+		if moveDir.x > 0 || lastXMovement == 1:
+				sprite.rotation_degrees = 90
+				sprite.flip_h = true
+		elif moveDir.x < 0 || lastXMovement == -1:
+				sprite.rotation_degrees = -90
+				sprite.flip_h = false
+	else:
+		animPlayer.play("Jump")
+		sprite.flip_v = false
+		sprite.rotation_degrees = 0
 
 func _on_DashTimer_timeout():
 	isDashing = false
