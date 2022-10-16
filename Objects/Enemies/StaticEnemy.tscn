@@ -101,4 +101,3 @@ anims/slimeWobble = SubResource( 7 )
 stream = ExtResource( 3 )
 volume_db = -27.966
 pitch_scale = 0.46
-bus = "SFX"

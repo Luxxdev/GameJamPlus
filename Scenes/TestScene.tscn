@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/tilemap/tileset_tilemap.tres" type="TileSet" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://CRT_shader.tres" type="Shader" id=5]
 [ext_resource path="res://Scripts/HPBar.gd" type="Script" id=6]
 [ext_resource path="res://Objects/Enemies/StaticEnemy.tscn" type="PackedScene" id=7]
-[ext_resource path="res://icon.png" type="Texture" id=8]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 5 )
@@ -145,9 +144,6 @@ position = Vector2( -14, 170 )
 
 [node name="RigidBody2D" parent="Boss/ExitBlockers" index="0"]
 position = Vector2( -9, 192 )
-
-[node name="Sprite" parent="Boss/BossBody" index="0"]
-texture = ExtResource( 8 )
 
 [node name="EnemySpawner2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 166, -728 )
