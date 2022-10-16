@@ -7,7 +7,7 @@ func _on_Button_pressed():
 		"Play":
 			get_tree().change_scene("res://Scenes/TestScene.tscn")
 		"Replay":
-			get_tree().change_scene("res://Scenes/TitleScreen.tscn")
+			get_tree().change_scene("res://Scenes/TestScene.tscn")
 		"Credits":
 			get_tree().change_scene("res://Scenes/TitleScreen.tscn")
 		"Quit":

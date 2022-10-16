@@ -1,15 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/MenuButton.gd" type="Script" id=1]
 [ext_resource path="res://Objects/images/Title.png" type="Texture" id=2]
 [ext_resource path="res://CRT_shader.tres" type="Shader" id=3]
-[ext_resource path="res://Fonts/WW2BAH__.TTF" type="DynamicFontData" id=4]
-
-[sub_resource type="DynamicFont" id=2]
-size = 32
-use_filter = true
-extra_spacing_bottom = -13
-font_data = ExtResource( 4 )
+[ext_resource path="res://Fonts/DynamicFont.tres" type="DynamicFont" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -71,10 +65,10 @@ margin_left = 205.0
 margin_top = 18.0
 margin_right = 301.0
 margin_bottom = 84.0
-custom_fonts/normal_font = SubResource( 2 )
+custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]Visceral Tower[/center]"
-text = "Visceral Tower"
+bbcode_text = "[center]Bloody Ascent[/center]"
+text = "Bloody Ascent"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

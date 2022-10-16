@@ -45,9 +45,10 @@ func Shoot():
 	playing = true
 	print("tiro")
 	var bulletInstance = Bullet.instance()
+	bulletInstance.rotation = global_rotation
 	bulletInstance.global_position = $Position2D.global_position
-	bulletInstance.velocity = target.global_position - bulletInstance.position + Vector2(target.moveDir.x*100,target.moveDir.y*100)
-	get_parent().add_child(bulletInstance)
+	bulletInstance.velocity = target.global_position - bulletInstance.position + Vector2(target.moveDir.x*50,target.moveDir.y*50)
+	get_parent().get_parent().get_parent().add_child(bulletInstance)
 	$ShootDelay.start()
 
 #func GenerateRaycasts():
