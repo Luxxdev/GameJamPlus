@@ -213,22 +213,36 @@ func _check_is_valid_wall():
 	
 func GetDirection():
 	var direction = Vector2(0,0)
-	if dashTarget == []:
-		direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
-		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-		direction = direction.clamped(1)
-		if(direction == Vector2(0,0)):
-			if lastXMovement == 1:
-				direction.x = 1
-			elif lastXMovement == -1:
-				direction.x = -1
-	else:
+#	if dashTarget == []:
+	direction.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
+	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	direction = direction.clamped(1)
+	if direction.x != 0 and direction.y != 0:
+		return direction
+		
+	elif direction == Vector2(0,0) and dashTarget == []:
+		if lastXMovement == 1:
+			direction.x = 1
+		elif lastXMovement == -1:
+			direction.x = -1
+			
+	elif dashTarget != []:
 		var temp = []
 		for i in dashTarget:
 			temp.append([i, i.global_position.distance_to(global_position)])
 		temp.sort_custom(MyCustomSorter, "sort_ascending_by_second_element")
-		direction = (temp[0][0].global_position - global_position).normalized()
+		if direction.x == 0:
+			direction.x = (temp[0][0].global_position - global_position).normalized().x
+		if direction.y == 0:
+			direction.y = (temp[0][0].global_position - global_position).normalized().y
 	return direction
+#	else:
+#		var temp = []
+#		for i in dashTarget:
+#			temp.append([i, i.global_position.distance_to(global_position)])
+#		temp.sort_custom(MyCustomSorter, "sort_ascending_by_second_element")
+#		direction = (temp[0][0].global_position - global_position).normalized()
+#	return direction
 
 class MyCustomSorter:
 	static func sort_ascending_by_second_element(a, b):
@@ -348,8 +362,12 @@ func _on_DashTimer_timeout():
 	pass # Replace with function body.
 
 func _on_AttackArea_area_entered(area):
+	print(area.get_groups())
 	if area.is_in_group("DashTarget"):
-		area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
+		if area.is_in_group("MovingEnemy"):
+			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
+		else:
+			area.get_parent().TakeDamage(dashDirection)
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
 		canJump = true

@@ -8,6 +8,9 @@ var PlayerInArea = false
 var target = null
 onready var ray = $RayCast2D
 export(PackedScene) var Bullet
+var life = 3
+var spawnerRef
+var positionInSpawner
 
 func _process(delta):
 	if PlayerInArea:
@@ -31,6 +34,12 @@ func _on_Area2D_body_exited(body):
 	if "Player" in body.name:
 		PlayerInArea = false
 		target = null
+
+func TakeDamage(dir):
+	life -= 1
+	if life <= 0:
+		spawnerRef.enemyInPosition[positionInSpawner] = null
+		queue_free()
 
 func Shoot():
 	playing = true

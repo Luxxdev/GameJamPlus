@@ -13,8 +13,15 @@ onready var enemies = $Enemies
 var spawnPositions = []
 var enemyInPosition = []
 onready var visibilityNotifier = $VisibilityNotifier2D
+export var enemyType = 0
 
 func _ready():
+	match enemyType:
+		0:
+			enemy = load("res://Objects/MovingEnemy.tscn")
+		1:
+			enemy = load("res://Objects/Enemies/ShootingEnemy.tscn")
+			
 	for i in range($EnemyAreas.get_child_count()):
 		spawnPositions.append($EnemyAreas.get_child(i))
 		enemyInPosition.append(i)

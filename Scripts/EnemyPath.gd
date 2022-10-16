@@ -12,13 +12,15 @@ var spawnerRef
 var atackRecoil = Vector2(0,0)
 onready var sprite = $PathFollow2D/Sprite
 onready var path = $PathFollow2D
+var count = 0
 
 enum state{
 	PATROL,
 	FOLLOW,
 	BACK,
 	ATTACK,
-	RECOIL
+	RECOIL,
+	PREPARE
 }
 
 func _process(delta):
@@ -29,9 +31,13 @@ func _process(delta):
 		match stateControl:
 			state.PATROL:
 				path.set_offset(path.get_offset() + runSpeed + delta)
+			state.PREPARE:
+				count += delta
+				sprite.set_speed_scale(2)
+				if count >= 0.5:
+					stateControl = state.ATTACK
 			state.ATTACK:
-				self_modulate.a += delta * 20
-				if self_modulate.a >= 255:
+				if canAttack:
 					Attack()
 			state.FOLLOW:
 				sprite.global_position = sprite.global_position.move_toward(object.position, 2)
@@ -41,8 +47,9 @@ func _process(delta):
 				sprite.position = sprite.position.move_toward(Vector2(0,0), 10)
 		if sprite.position == Vector2(0,0):
 			stateControl = state.PATROL
-		if stateControl != state.ATTACK:
-			self_modulate.a = 232
+		if stateControl != state.PREPARE:
+			sprite.set_speed_scale(1)			
+			count = 0
 #	if (!loop and unit_offset == 1):
 #		queue_free()
 
@@ -51,8 +58,7 @@ func Attack():
 		if object != null:
 			sprite.play("Attack")
 			sprite.global_position = sprite.global_position.move_toward(object.position, 15)
-		yield(get_tree().create_timer(1),"timeout")
-		canAttack = true
+		
 #		if $Sprite.global_position == object.global_position:
 			
 func TakeDamage(dir):
@@ -68,7 +74,7 @@ func TakeDamage(dir):
 func _on_AttackArea_body_entered(body):
 	if "Player" in body.name:
 #		print("atacando")
-		stateControl = state.ATTACK
+		stateControl = state.PREPARE
 
 func _on_AttackArea_body_exited(body):
 	if "Player" in body.name:
