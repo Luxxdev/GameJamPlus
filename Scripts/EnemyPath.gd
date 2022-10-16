@@ -62,6 +62,7 @@ func Attack():
 #		if $Sprite.global_position == object.global_position:
 			
 func TakeDamage(dir):
+	$PathFollow2D/Sprite/TakeDMG.play()
 	life -= 1
 	atackRecoil = dir
 #	print("ai")
