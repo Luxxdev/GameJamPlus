@@ -24,7 +24,7 @@ margin_right = 200.0
 margin_bottom = 207.0
 text = "Retry"
 script = ExtResource( 3 )
-reference_path = "Replay"
+reference_path = "Play"
 
 [node name="Label" type="Label" parent="Control"]
 margin_left = 103.0

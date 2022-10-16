@@ -33,7 +33,8 @@ var normalGravity = 20
 var jumpDirection = Vector2(0,-1)
 var wallDirection = 0
 var maxCameraOffset = 100
-var health = 10
+var health = 30
+const maxHealth = 30
 signal healthChanged
 onready var sprite = $Sprite
 onready var animPlayer = $AnimationPlayer
@@ -267,7 +268,7 @@ func TakeDamage(dir, boss = false):
 			dir *= -1
 		stunned = true
 		falling = true
-		health -= 1
+		health -= 3
 		motion.y = 300 * jumpDirection.y
 		motion.x = 100 * dir
 		invulnerable = true
@@ -376,9 +377,15 @@ func _on_AttackArea_area_entered(area):
 	if area.is_in_group("DashTarget"):
 		if area.is_in_group("MovingEnemy"):
 			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
+			if health < maxHealth:
+				health += 1
+				emit_signal("healthChanged")
 		elif area.is_in_group("Boss"):
 			area.get_parent().get_parent().TakeDamage(dashDirection)
 		else:
+#			if area.get_parent().name == "ShootingEnemy" and health < maxHealth:
+#				health += 1
+#				emit_signal("healthChanged")
 			area.get_parent().TakeDamage(dashDirection)
 		yield(get_tree().create_timer(dashTimer.wait_time), "timeout")
 		canDash = true
