@@ -15,7 +15,7 @@ var moveDir = Vector2(-1,0)
 var noMovementInput = true
 var walking = false
 var acceleration = 100
-var maxSpeed = 200
+var maxSpeed = 100
 var canJump = true
 var justJumped = false
 var jumpHeight = 300
@@ -24,14 +24,17 @@ var dashDirection
 var dashSpeed = 750
 var canDash = true
 var isDashing = false
+var invulnerable = false
 var dashTarget = []
 var stunned = false
 var falling = false
 var lastXMovement = 1
+var reducedGravity = 5
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
 var wallDirection = 0
+var maxCameraOffset = 100
 onready var sprite = $Sprite
 onready var animPlayer = $AnimationPlayer
 onready var wallraycast = $WallRaycast
@@ -41,6 +44,10 @@ onready var raycastUp = $RayCastUp
 onready var dashTimer = $DashTimer
 onready var dashCooldown = $DashCooldown
 onready var attackAreaColl = $Sprite/AttackArea/CollisionShape2D
+var camera
+
+func _ready():
+	camera = get_parent().get_node("Player/CameraReal")
 
 func _physics_process(_delta):
 	#motion.y = min(motion.y+gravity, maxGravity)
@@ -56,13 +63,20 @@ func _physics_process(_delta):
 		moveDir.x = -1
 		move()
 	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and !falling and inputEnabled:
+		camera.offset.y = max(camera.offset.y - _delta*60, -maxCameraOffset)
 		moveDir.y = -1
 #		moveDir.x = 0
 		move()
 	elif Input.is_action_pressed("ui_down") and _check_is_valid_wall() and !falling and inputEnabled:
+		camera.offset.y = min(camera.offset.y + _delta*60, maxCameraOffset)
 		moveDir.y = 1
 #		moveDir.x = 0
 		move()
+	else:
+		if camera.offset.y > 0:
+			camera.offset.y = max(camera.offset.y - _delta*120, 0)
+		if camera.offset.y < 0:
+			camera.offset.y = min(camera.offset.y + _delta*120, 0)
 	
 	if motion.x > 0.1:
 		lastXMovement = 1
@@ -104,9 +118,9 @@ func _physics_process(_delta):
 		motion.y += gravity
 		sprite.flip_v = false
 		
-	if Input.is_action_just_pressed("Dash") and canDash and !falling and dashCooldown.is_stopped():
+	if Input.is_action_just_pressed("Dash") and canDash and !stunned and dashCooldown.is_stopped():
 		Dash()
-	if Input.is_action_just_pressed("Jump") and !falling and inputEnabled:
+	if Input.is_action_just_pressed("Jump") and !stunned and inputEnabled:
 		Jump()
 	if is_on_floor() or raycastUp.is_colliding():
 		canJump = true
@@ -173,9 +187,12 @@ func Jump():
 			motion.x = maxSpeed*(jumpDirection.x)
 		motion.y = jumpDirection.y * jumpHeight
 		#$JumpSound.play()
+		falling = false
 		canDash = true
 		yield(get_tree().create_timer(0.01), "timeout")
 		canJump = false
+		yield(get_tree().create_timer(0.2), "timeout")
+		motion.x = motion.x/4
 #		acceleration = airAcceleration
 #		justJumped = true
 #		yield(get_tree().create_timer(maxCoyoteTime), "timeout") 
@@ -219,16 +236,22 @@ class MyCustomSorter:
 		return a[1] < b[1]
 			
 func TakeDamage(dir):
-	sprite.modulate = Color(1,1,1,1)
-	if isDashing:
+	if invulnerable:
 		pass
 	else:
+		if _check_is_valid_wall():
+			dir *= -1
 		stunned = true
 		falling = true
-		motion.y = -100
-		motion.x = 200 * dir
-		yield(get_tree().create_timer(0.5), "timeout")
+		motion.y = 300 * jumpDirection.y
+		motion.x = 100 * dir
+		invulnerable = true
+		yield(get_tree().create_timer(1), "timeout")
 		stunned = false
+		canJump = true
+		invulnerable = false
+		
+	
 
 func Dash():
 	$Particles2D.emitting = true
@@ -239,6 +262,9 @@ func Dash():
 	isDashing = true
 	attackAreaColl.disabled = false
 	#print(lastXMovement)
+	var temp = gravity
+	gravity = reducedGravity
+	invulnerable = true
 	if lastXMovement == -1:
 		pass
 	elif lastXMovement == 1:
@@ -248,10 +274,18 @@ func Dash():
 	canJump = false #IF não acertar um inimigo
 	yield(get_tree().create_timer(0.5), "timeout")
 	$Particles2D.emitting = false
+	yield(get_tree().create_timer(0.3), "timeout")
+	invulnerable = false
+	yield(get_tree().create_timer(0.3), "timeout")
+	gravity = temp
 
 func HandleAnimations():
+	sprite.rotation_degrees = 0
+	sprite.self_modulate = Color(1,1,1,1)
+	
 	if isDashing:
 		animPlayer.play("Attack")
+		sprite.self_modulate = Color(1,0,0,1)
 	elif Input.is_action_pressed("ui_right") and is_on_floor():
 		animPlayer.play("Run")
 		sprite.flip_h = false
