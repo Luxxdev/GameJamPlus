@@ -30,7 +30,6 @@ func _on_Area2D_body_exited(body):
 
 func Shoot():
 	playing = true
-	print("tiro")
 	$ShootDelay.start()
 
 #func GenerateRaycasts():

@@ -18,7 +18,6 @@ func _ready():
 	for i in range($EnemyAreas.get_child_count()):
 		spawnPositions.append($EnemyAreas.get_child(i))
 		enemyInPosition.append(i)
-	print(spawnPositions)
 	timer.wait_time = spawnFrequency
 	for i in range (spawnPositions.size()):
 		SpawnEnemy(i)

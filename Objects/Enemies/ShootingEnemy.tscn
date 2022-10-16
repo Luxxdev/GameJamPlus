@@ -5,10 +5,12 @@
 [ext_resource path="res://Objects/Bullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 32, 0, 32, 32 )
 

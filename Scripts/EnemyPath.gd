@@ -30,7 +30,8 @@ func _process(delta):
 			state.PATROL:
 				path.set_offset(path.get_offset() + runSpeed + delta)
 			state.ATTACK:
-				if canAttack:
+				self_modulate.a += delta * 20
+				if self_modulate.a >= 255:
 					Attack()
 			state.FOLLOW:
 				sprite.global_position = sprite.global_position.move_toward(object.position, 2)
@@ -40,13 +41,18 @@ func _process(delta):
 				sprite.position = sprite.position.move_toward(Vector2(0,0), 10)
 		if sprite.position == Vector2(0,0):
 			stateControl = state.PATROL
+		if stateControl != state.ATTACK:
+			self_modulate.a = 232
 #	if (!loop and unit_offset == 1):
 #		queue_free()
 
 func Attack():
 	if object != null:
-		sprite.play("Attack")
-		sprite.global_position = sprite.global_position.move_toward(object.position, 15)
+		if object != null:
+			sprite.play("Attack")
+			sprite.global_position = sprite.global_position.move_toward(object.position, 15)
+		yield(get_tree().create_timer(1),"timeout")
+		canAttack = true
 #		if $Sprite.global_position == object.global_position:
 			
 func TakeDamage(dir):
@@ -82,7 +88,7 @@ func _on_DamageArea_body_entered(body):
 	if "Player" in body.name:
 		if !body.isDashing and !body.falling:
 			var dir = 0
-			if global_position.x - object.global_position.x > 0:
+			if sprite.global_position.x - object.global_position.x > 0:
 				dir = -1
 			else:
 				dir = 1
@@ -90,5 +96,4 @@ func _on_DamageArea_body_entered(body):
 		canAttack = false
 		stateControl = state.RECOIL
 #		print("voltou")
-		yield(get_tree().create_timer(1), "timeout")
-		canAttack = true
+		
