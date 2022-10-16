@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=7 format=2]
+
+[ext_resource path="res://UI/HOVER.tres" type="StyleBox" id=1]
+[ext_resource path="res://UI/BUTTON.tres" type="StyleBox" id=2]
+[ext_resource path="res://UI/BarBG.tres" type="StyleBox" id=3]
+[ext_resource path="res://UI/BAGFG.tres" type="StyleBox" id=4]
+[ext_resource path="res://Fonts/FontPequena.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Fonts/DynamicFont.tres" type="DynamicFont" id=6]
+
+[resource]
+default_font = ExtResource( 5 )
+Button/styles/hover = ExtResource( 1 )
+Button/styles/normal = ExtResource( 2 )
+Button/styles/pressed = ExtResource( 2 )
+Fonts/fonts/large = ExtResource( 6 )
+Fonts/fonts/normal = ExtResource( 5 )
+ProgressBar/styles/bg = ExtResource( 4 )
+ProgressBar/styles/fg = ExtResource( 3 )
