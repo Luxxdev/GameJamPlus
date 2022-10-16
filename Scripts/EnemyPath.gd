@@ -23,7 +23,8 @@ enum state{
 
 func _process(delta):
 	if atackRecoil != Vector2(0,0):
-		sprite.global_position = sprite.global_position.move_toward(-atackRecoil, 2)
+		sprite.global_position = sprite.global_position.move_toward(-atackRecoil, 4)
+	
 	else:
 		match stateControl:
 			state.PATROL:

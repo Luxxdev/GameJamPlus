@@ -147,7 +147,7 @@ enabled = true
 cast_to = Vector2( 6.48499e-05, 18 )
 
 [node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.25
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]

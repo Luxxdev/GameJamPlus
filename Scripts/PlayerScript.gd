@@ -27,7 +27,7 @@ var isDashing = false
 var dashTarget = []
 var stunned = false
 var falling = false
-var lastXMovement = 0
+var lastXMovement = 1
 #var currentCoyote = 0
 #var maxCoyote = 0.2
 var jumpDirection = Vector2(0,-1)
@@ -135,7 +135,6 @@ func _physics_process(_delta):
 	else:
 		motion = move_and_slide(motion, UP)
 	HandleAnimations()
-	print(motion.x)
 	
 
 func move():
@@ -202,9 +201,9 @@ func GetDirection():
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		direction = direction.clamped(1)
 		if(direction == Vector2(0,0)):
-			if(sprite.flip_h):
+			if lastXMovement == 1:
 				direction.x = 1
-			else:
+			elif lastXMovement == -1:
 				direction.x = -1
 	else:
 		var temp = []
@@ -212,6 +211,7 @@ func GetDirection():
 			temp.append([i, i.global_position.distance_to(global_position)])
 		temp.sort_custom(MyCustomSorter, "sort_ascending_by_second_element")
 		direction = (temp[0][0].global_position - global_position).normalized()
+	print(direction)
 	return direction
 
 class MyCustomSorter:
@@ -237,12 +237,19 @@ func Dash():
 	dashCooldown.start()
 	isDashing = true
 	attackAreaColl.disabled = false
+	print(lastXMovement)
+	if lastXMovement == -1:
+		pass
+	elif lastXMovement == 1:
+		pass
 	yield(get_tree().create_timer(0.01), "timeout")
 	canDash = false
 	canJump = false #IF não acertar um inimigo
 
 func HandleAnimations():
-	if Input.is_action_pressed("ui_right") and is_on_floor():
+	if isDashing:
+		animPlayer.play("Attack")
+	elif Input.is_action_pressed("ui_right") and is_on_floor():
 		animPlayer.play("Run")
 		sprite.flip_h = false
 	elif Input.is_action_pressed("ui_left") and is_on_floor():
