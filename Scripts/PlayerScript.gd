@@ -56,14 +56,21 @@ func _physics_process(_delta):
 #		currentCoyote += _delta
 #		if currentCoyote > maxCoyote:
 #			canJump = false
-	print(gravity)
 	moveDir = Vector2(0,0)
 	if Input.is_action_pressed("ui_right") and !falling and inputEnabled:
+#		camera.offset.x = min(camera.offset.x + _delta*60, maxCameraOffset)
 		moveDir.x = 1
 		move()
 	elif Input.is_action_pressed("ui_left") and !falling and inputEnabled:
+#		camera.offset.x = max(camera.offset.x - _delta*60, -maxCameraOffset)		
 		moveDir.x = -1
 		move()
+#	else:
+#		if camera.offset.x > 0:
+#			camera.offset.x = max(camera.offset.x - _delta*200, 0)
+#		if camera.offset.x < 0:
+#			camera.offset.x = min(camera.offset.x + _delta*200, 0)
+			
 	if Input.is_action_pressed("ui_up") and _check_is_valid_wall() and !falling and inputEnabled:
 		camera.offset.y = max(camera.offset.y - _delta*60, -maxCameraOffset)
 		moveDir.y = -1
@@ -76,9 +83,12 @@ func _physics_process(_delta):
 		move()
 	else:
 		if camera.offset.y > 0:
-			camera.offset.y = max(camera.offset.y - _delta*120, 0)
+			camera.offset.y = max(camera.offset.y - _delta*200, 0)
 		if camera.offset.y < 0:
-			camera.offset.y = min(camera.offset.y + _delta*120, 0)
+			camera.offset.y = min(camera.offset.y + _delta*200, 0)
+		
+			
+		
 	
 	if motion.x > 0.1:
 		lastXMovement = 1
@@ -253,6 +263,7 @@ func TakeDamage(dir):
 	if invulnerable:
 		pass
 	else:
+		sprite.self_modulate = Color(1,0,0,1)	
 		if _check_is_valid_wall():
 			dir *= -1
 		stunned = true
@@ -264,8 +275,7 @@ func TakeDamage(dir):
 		stunned = false
 		canJump = true
 		invulnerable = false
-		
-	
+		sprite.self_modulate = Color(1,1,1,1)
 
 func Dash():
 #	$Particles2D.emitting = true
@@ -293,11 +303,8 @@ func Dash():
 
 func HandleAnimations():
 	sprite.rotation_degrees = 0
-	sprite.self_modulate = Color(1,1,1,1)
-	
 	if isDashing:
 		animPlayer.play("Attack")
-		sprite.self_modulate = Color(1,0,0,1)
 	elif Input.is_action_pressed("ui_right") and is_on_floor():
 		animPlayer.play("Run")
 		sprite.flip_h = false

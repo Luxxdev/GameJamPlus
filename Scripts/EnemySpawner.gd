@@ -14,6 +14,7 @@ var spawnPositions = []
 var enemyInPosition = []
 onready var visibilityNotifier = $VisibilityNotifier2D
 export var enemyType = 0
+export var isBoss = false
 
 func _ready():
 	match enemyType:
@@ -21,14 +22,14 @@ func _ready():
 			enemy = load("res://Objects/MovingEnemy.tscn")
 		1:
 			enemy = load("res://Objects/Enemies/ShootingEnemy.tscn")
-			
 	for i in range($EnemyAreas.get_child_count()):
 		spawnPositions.append($EnemyAreas.get_child(i))
-		enemyInPosition.append(i)
+		enemyInPosition.append(null)
 	timer.wait_time = spawnFrequency
-	for i in range (spawnPositions.size()):
-		SpawnEnemy(i)
-	timer.start()
+	if !isBoss:
+		for i in range (spawnPositions.size()):
+			SpawnEnemy(i)
+		timer.start()
 
 func _on_SpawnTimer_timeout():
 	timer.start()
