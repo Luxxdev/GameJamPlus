@@ -7,4 +7,4 @@ func _ready():
 	playerNode.connect("healthChanged", self, "UpdateHealth")
 
 func UpdateHealth():
-	value = playerNode.health * 10
+	value = playerNode.health

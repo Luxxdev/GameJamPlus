@@ -36,12 +36,14 @@ func _on_Area2D_body_exited(body):
 		target = null
 
 func TakeDamage(dir):
+	$TakeDMG.play()
 	life -= 1
 	if life <= 0:
 		spawnerRef.enemyInPosition[positionInSpawner] = null
 		queue_free()
 
 func Shoot():
+	$Shoot.play()
 	playing = true
 	print("tiro")
 	var bulletInstance = Bullet.instance()
