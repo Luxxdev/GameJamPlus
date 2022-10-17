@@ -264,9 +264,14 @@ func TakeDamage(dir, boss = false):
 	if invulnerable and !boss:
 		pass
 	else:
+		print("tomei")
 		sprite.self_modulate = Color(1,0,0,1)
 		if _check_is_valid_wall():
 			dir *= -1
+		motion = Vector2(0,0)
+		isDashing = false
+		$BloodShred.visible = false
+		dashTimer.stop()
 		stunned = true
 		falling = true
 		health -= 3
@@ -284,7 +289,7 @@ func TakeDamage(dir, boss = false):
 
 func Dash():
 	dashDirection = GetDirection() * dashSpeed
-	$BloodShred.rotation =dashDirection.angle()
+	$BloodShred.rotation = dashDirection.angle()
 	$BloodShred.modulate = Color(1,1,1,1)
 	$BloodShred.visible = true
 	animPlayer.play("Attack")
