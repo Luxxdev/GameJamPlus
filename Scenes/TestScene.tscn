@@ -83,7 +83,7 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 352, -9163 )
+position = Vector2( 261, -9381 )
 
 [node name="CameraReal" type="Camera2D" parent="Player"]
 position = Vector2( 1, 0 )
@@ -119,17 +119,29 @@ position = Vector2( 160, -9307 )
 [node name="StartFightArea" parent="Boss" index="0"]
 position = Vector2( -14, 170 )
 
+[node name="CollisionShape2D" parent="Boss/StartFightArea" index="0"]
+position = Vector2( 29, 1 )
+
 [node name="RigidBody2D" parent="Boss/ExitBlockers" index="0"]
 position = Vector2( -9, 192 )
 
 [node name="BossBody" parent="Boss" index="2"]
-position = Vector2( -2, 86 )
+position = Vector2( -2, 56 )
 
 [node name="ShootingPoint" type="Node2D" parent="Boss/BossBody" index="1"]
 rotation = 1.5708
 
 [node name="Position2D" type="Position2D" parent="Boss/BossBody/ShootingPoint"]
 position = Vector2( 20, 0 )
+
+[node name="EnemySpawner" parent="Boss/BossBody" index="4"]
+position = Vector2( -2, -4 )
+
+[node name="EnemyArea" parent="Boss/BossBody/EnemySpawner/EnemyAreas" index="0"]
+position = Vector2( -109, -22 )
+
+[node name="EnemyArea2" parent="Boss/BossBody/EnemySpawner/EnemyAreas" index="1"]
+position = Vector2( 101, -23 )
 
 [node name="EnemySpawner2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 166, -728 )

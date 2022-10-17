@@ -3,6 +3,7 @@ extends KinematicBody2D
 var target = null
 var speed = 150
 var velocity = Vector2(0,0)
+var isBoss = false
 
 func _physics_process(delta):
 	position += velocity * delta
@@ -11,7 +12,7 @@ func _physics_process(delta):
 func _on_Bullet_body_entered(body):
 	if "Player" in body.name:
 		if (global_position.x < body.global_position.x):
-			body.TakeDamage(1)
+			body.TakeDamage(1, isBoss)
 		else:
-			body.TakeDamage(-1)
+			body.TakeDamage(-1, isBoss)
 	queue_free()

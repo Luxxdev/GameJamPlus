@@ -9,19 +9,26 @@ var cooldown = 2
 var life = 20
 signal healthChanged
 onready var sprite = $BossBody/BossHead
+onready var bossBody = $BossBody
 var playerOnDamageArea = false
 export(PackedScene) var Bullet
 onready var bulletSpawnPoint = $BossBody/ShootingPoint/Position2D
+var moveDirection = 0
+var lowLifeMult = 1
+var lowLife
+var veryLowLife
+
 
 
 func _ready():
 	set_process(false)
+	lowLife = life/2
+	veryLowLife = life/4
 
 enum state{
 	COOLDOWN,
 	ATTACK,
 	ATTACK2,
-	PREPARE
 	SPAWN,
 }
 
@@ -42,26 +49,37 @@ func _process(delta):
 	match currentState:
 		state.ATTACK:
 			print("atk1")
-			cooldown = 5
+			cooldown = 4/lowLifeMult
 			Shoot()
 			currentState = state.COOLDOWN
 		state.ATTACK2:
 			print("atk2")
-			cooldown = 5
+			cooldown = 4/lowLifeMult
 			currentState = state.COOLDOWN
 		state.SPAWN:
 			print("spawn")
-			if enemySpawner.enemies.get_child_count() == 0:
+			if enemySpawner.enemies.get_child_count() != 0:
 				cooldown = 0
 			else:
 				enemySpawner.set_spawn_position()
-				cooldown = 5
+				cooldown = 4/lowLifeMult
 			currentState = state.COOLDOWN
+		
 		state.COOLDOWN:
 			count += delta
 			if count > cooldown:
-				currentState = randi() % 4 + 1
-			
+				currentState = state.ATTACK
+#				currentState = randi() % 3 + 1
+	
+	if bossBody.global_position.x - player.global_position.x > 50:
+		moveDirection = -1
+	elif bossBody.global_position.x - player.global_position.x < -50:
+		moveDirection = 1
+	else:
+		moveDirection = 0
+	
+	bossBody.position.x += 50*lowLifeMult*delta*moveDirection
+	
 	if currentState != state.COOLDOWN:
 		count = 0
 	
@@ -79,6 +97,7 @@ func Shoot(): # jogar oito bolas de fogo
 	for i in range(8):
 		var bulletInstance = Bullet.instance()
 		bulletSpawnPoint.get_parent().rotation_degrees = 45*i
+		bulletInstance.isBoss = true
 		bulletInstance.rotation_degrees = bulletSpawnPoint.get_parent().rotation_degrees
 		bulletInstance.global_position = bulletSpawnPoint.global_position
 		bulletInstance.velocity = Vector2(cos(bulletSpawnPoint.get_parent().rotation), sin(bulletSpawnPoint.get_parent().rotation))
@@ -89,8 +108,11 @@ func Atack(): #porrada?
 	
 func TakeDamage(dir):
 	life -= 1
+	if life < lowLife:
+		lowLifeMult = 1.5
+	if life < veryLowLife:
+		lowLifeMult = 2
 	emit_signal("healthChanged")
-	print(life)
 	if life <= 0:
 		queue_free()
 
