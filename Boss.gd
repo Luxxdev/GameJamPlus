@@ -17,6 +17,7 @@ var moveDirection = 0
 var lowLifeMult = 1
 var lowLife
 var veryLowLife
+var shootCount = 0
 
 
 
@@ -52,6 +53,9 @@ func _process(delta):
 			cooldown = 4/lowLifeMult
 			Shoot()
 			currentState = state.COOLDOWN
+			if life < veryLowLife:
+				yield(get_tree().create_timer(0.5), "timeout")
+				Shoot()
 		state.ATTACK2:
 			print("atk2")
 			cooldown = 4/lowLifeMult
@@ -93,10 +97,17 @@ func _process(delta):
 		playerOnDamageArea = false
 
 func Shoot(): # jogar oito bolas de fogo
-	var dir = Vector2.RIGHT
+	var dir
+	if shootCount == 0:
+		shootCount += 1
+		dir = 0
+	elif shootCount == 1:
+		shootCount -= 1
+		dir = 22.5
+	
 	for i in range(8):
 		var bulletInstance = Bullet.instance()
-		bulletSpawnPoint.get_parent().rotation_degrees = 45*i
+		bulletSpawnPoint.get_parent().rotation_degrees = 45*i + dir
 		bulletInstance.isBoss = true
 		bulletInstance.rotation_degrees = bulletSpawnPoint.get_parent().rotation_degrees
 		bulletInstance.global_position = bulletSpawnPoint.global_position
