@@ -5,22 +5,18 @@
 [ext_resource path="res://Audio/FX/Action Misc 17.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 32, 32, 32 )
 
@@ -63,25 +59,12 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -4 ), Vector2( 0, 5 ), Vector2( 0, -4 ) ]
-}
 
 [node name="Slime" type="AnimatedSprite"]
 position = Vector2( 0, 0.407758 )
-rotation = -0.0866125
-scale = Vector2( 1.02399, 1.02399 )
+rotation = 0.0872665
 frames = SubResource( 6 )
-frame = 3
+frame = 2
 playing = true
 script = ExtResource( 2 )
 
@@ -99,5 +82,5 @@ anims/slimeWobble = SubResource( 7 )
 
 [node name="TakeDMG" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -27.966
+volume_db = -10.0
 pitch_scale = 0.46

@@ -13,7 +13,7 @@ func _on_Area2D_body_entered(body):
 	if "Player" in body.name:
 		var dir
 		if global_position.x - body.global_position.x > 0:
-				dir = -1
+			dir = -1
 		else:
 			dir = 1
 		body.TakeDamage(dir)
