@@ -33,8 +33,8 @@ var normalGravity = 20
 var jumpDirection = Vector2(0,-1)
 var wallDirection = 0
 var maxCameraOffset = 100
-var health = 30
-const maxHealth = 30
+var health = 10
+const maxHealth = 10
 signal healthChanged
 onready var tween = $Tween
 onready var sprite = $Sprite
@@ -274,11 +274,11 @@ func TakeDamage(dir, boss = false):
 		dashTimer.stop()
 		stunned = true
 		falling = true
-		health -= 3
+		health -= 1
 		motion.y = 300 * jumpDirection.y
 		motion.x = 100 * dir
 		invulnerable = true
-		emit_signal("healthChanged")
+		emit_signal("healthChanged", true)
 		yield(get_tree().create_timer(1), "timeout")
 		sprite.self_modulate = Color(1,1,1,1)		
 		stunned = false
@@ -388,8 +388,7 @@ func _on_AttackArea_area_entered(area):
 		if area.is_in_group("MovingEnemy"):
 			area.get_parent().get_parent().get_parent().TakeDamage(dashDirection)
 			if health < maxHealth:
-				health += 1
-				emit_signal("healthChanged")
+				emit_signal("healthChanged", false)
 		elif area.is_in_group("Boss"):
 			area.get_parent().get_parent().TakeDamage(dashDirection)
 			Dash()

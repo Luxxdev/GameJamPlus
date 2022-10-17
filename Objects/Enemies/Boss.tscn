@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Boss.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Objects/images/fumaca.png" type="Texture" id=2]
 [ext_resource path="res://Objects/EnemySpawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Enemies/Boss/BossHand.png" type="Texture" id=4]
 [ext_resource path="res://Objects/Enemies/Boss/bosshead.png" type="Texture" id=5]
@@ -12,6 +12,31 @@ extents = Vector2( 375, 8.25 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 138, 5 )
+
+[sub_resource type="Gradient" id=25]
+colors = PoolColorArray( 0.771973, 0, 0, 1, 0.135254, 0.0443802, 0.135165, 1 )
+
+[sub_resource type="GradientTexture" id=26]
+gradient = SubResource( 25 )
+width = 8
+
+[sub_resource type="Curve" id=27]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.488636 ), -1.61818, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=28]
+width = 32
+curve = SubResource( 27 )
+
+[sub_resource type="ParticlesMaterial" id=29]
+emission_shape = 2
+emission_box_extents = Vector3( 38, 4, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+scale_curve = SubResource( 28 )
+color_ramp = SubResource( 26 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
@@ -189,9 +214,11 @@ contact_monitor = true
 shape = SubResource( 3 )
 disabled = true
 
-[node name="Sprite" type="Sprite" parent="ExitBlockers/RigidBody2D"]
+[node name="Sprite" type="Particles2D" parent="ExitBlockers/RigidBody2D"]
 visible = false
-scale = Vector2( 4.46875, 0.203125 )
+position = Vector2( 10, 0 )
+amount = 75
+process_material = SubResource( 29 )
 texture = ExtResource( 2 )
 
 [node name="BossBody" type="Node2D" parent="."]
@@ -206,6 +233,7 @@ position = Vector2( -68.667, 42 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 14 )
 animation = "Idle"
+frame = 2
 playing = true
 
 [node name="BossHandArea" type="Area2D" parent="BossBody/BossHead/BossLHand"]
@@ -218,7 +246,6 @@ position = Vector2( 68.6667, 42 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 14 )
 animation = "Idle"
-frame = 2
 playing = true
 flip_h = true
 

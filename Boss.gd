@@ -136,6 +136,7 @@ func TakeDamage(dir):
 	emit_signal("healthChanged")
 	if life <= 0:
 		queue_free()
+		get_tree().change_scene("res://Scenes/Victory.tscn")
 
 func _on_DamageArea_body_entered(body):
 	if "Player" in body.name:
