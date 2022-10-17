@@ -1,6 +1,7 @@
 extends Path2D
 
 export var runSpeed = 1
+export(PackedScene) var Explode
 var inPlayerArea = false
 var canAttack = true
 var object = null
@@ -63,12 +64,14 @@ func Attack():
 			
 func TakeDamage(dir):
 	#$PathFollow2D/Sprite/TakeDMG.play()
-
 	life -= 1
 	atackRecoil = dir
 #	print("ai")
 	if life <= 0:
 		spawnerRef.enemyInPosition[positionInSpawner] = null
+		var explodeInstance = Explode.instance()
+		explodeInstance.global_position = get_parent().global_position
+		get_parent().add_child(explodeInstance)
 		queue_free()
 	yield(get_tree().create_timer(0.2), "timeout")
 	atackRecoil = Vector2(0,0)

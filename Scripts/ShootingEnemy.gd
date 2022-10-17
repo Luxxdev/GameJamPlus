@@ -8,6 +8,7 @@ var PlayerInArea = false
 var target = null
 onready var ray = $RayCast2D
 export(PackedScene) var Bullet
+export(PackedScene) var Explode
 var life = 3
 var spawnerRef
 var positionInSpawner
@@ -39,6 +40,9 @@ func TakeDamage(dir):
 	$TakeDMG.play()
 	life -= 1
 	if life <= 0:
+		var explodeInstance = Explode.instance()
+		explodeInstance.global_position = global_position
+		get_parent().add_child(explodeInstance)
 		spawnerRef.enemyInPosition[positionInSpawner] = null
 		queue_free()
 
@@ -47,7 +51,7 @@ func Shoot():
 	playing = true
 	print("tiro")
 	var bulletInstance = Bullet.instance()
-	bulletInstance.rotation = global_rotation
+	bulletInstance.rotation = get_parent().global_rotation
 	bulletInstance.global_position = $Position2D.global_position
 	bulletInstance.velocity = target.global_position - bulletInstance.position + Vector2(target.moveDir.x*50,target.moveDir.y*50)
 	get_parent().get_parent().get_parent().add_child(bulletInstance)
