@@ -50,6 +50,8 @@ func _process(delta):
 	match currentState:
 		state.ATTACK:
 			print("atk1")
+			$BossBody/BossHead/BossLHand.play("Cast")
+			$BossBody/BossHead/BossRHand.play("Cast")
 			cooldown = 4/lowLifeMult
 			Shoot()
 			currentState = state.COOLDOWN
@@ -62,6 +64,8 @@ func _process(delta):
 			currentState = state.COOLDOWN
 		state.SPAWN:
 			print("spawn")
+			$BossBody/BossHead/BossLHand.play("SpawnL")
+			$BossBody/BossHead/BossRHand.play("SpawnR")
 			if enemySpawner.enemies.get_child_count() != 0:
 				cooldown = 0
 			else:
@@ -70,6 +74,8 @@ func _process(delta):
 			currentState = state.COOLDOWN
 		
 		state.COOLDOWN:
+			$BossBody/BossHead/BossLHand.play("Idle")
+			$BossBody/BossHead/BossRHand.play("Idle")
 			count += delta
 			if count > cooldown:
 				currentState = state.ATTACK

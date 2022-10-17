@@ -128,6 +128,13 @@ position = Vector2( -9, 192 )
 [node name="BossBody" parent="Boss" index="2"]
 position = Vector2( -2, 56 )
 
+[node name="BossLHand" parent="Boss/BossBody/BossHead" index="0"]
+position = Vector2( -110, 63.3333 )
+frame = 1
+
+[node name="BossRHand" parent="Boss/BossBody/BossHead" index="1"]
+frame = 0
+
 [node name="ShootingPoint" type="Node2D" parent="Boss/BossBody" index="1"]
 rotation = 1.5708
 
@@ -653,188 +660,172 @@ scale = Vector2( 1.00829, 1.00829 )
 position = Vector2( 130.75, -654.258 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime4" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 242.421, -1880.84 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime5" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 254.132, -2205.93 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+frame = 0
 
 [node name="Slime32" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 136.407, -2464.23 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime6" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 312.915, -2735.75 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+frame = 0
 
 [node name="Slime7" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 116.756, -3020.69 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime8" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 123.326, -3203.06 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime9" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 130.752, -3409.22 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime10" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 138.179, -3615.38 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime11" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 178.316, -4288.78 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime12" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 355.612, -4361.78 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime13" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 201.601, -4494.36 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime14" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 386.255, -4551.23 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime15" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 234.951, -5199.76 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+frame = 0
 
 [node name="Slime16" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 257.585, -6048.46 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime17" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 383.377, -6234.47 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime18" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 389.946, -6416.84 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime19" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 309.079, -6816.72 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime20" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 265.355, -7366.12 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime21" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 263.927, -7326.47 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime22" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 501.8, -7317.9 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime23" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 503.228, -7357.55 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime24" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 381.738, -7346.04 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+frame = 0
 
 [node name="Slime25" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 406.875, -8162.2 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime26" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 410.739, -8297.03 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime27" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 416.72, -8407.96 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime28" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 419.88, -8550.76 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime29" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 425.777, -8733.85 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 1
+frame = 2
 
 [node name="Slime30" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 432.347, -8916.22 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime31" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 439.488, -9114.45 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+frame = 0
 
 [node name="Slime2" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 222.014, 7.9978 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [node name="Slime3" parent="SlimesPos" instance=ExtResource( 7 )]
 position = Vector2( 1.52588e-05, -1.52588e-05 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-frame = 2
 
 [connection signal="visibility_changed" from="Boss" to="CanvasLayer/Control/MarginContainer/BossHP" method="_on_Boss_visibility_changed"]
 
