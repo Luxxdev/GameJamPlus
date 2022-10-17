@@ -50,8 +50,8 @@ theme = ExtResource( 5 )
 [node name="Play" type="Button" parent="Control"]
 margin_left = 215.0
 margin_top = 87.0
-margin_right = 293.0
-margin_bottom = 157.0
+margin_right = 296.0
+margin_bottom = 162.0
 text = "Play"
 script = ExtResource( 1 )
 reference_path = "Play"

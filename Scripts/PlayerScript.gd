@@ -378,7 +378,7 @@ func HandleAnimations():
 
 func _on_DashTimer_timeout():
 	isDashing = false
-	attackAreaColl.disabled = true	
+	attackAreaColl.disabled = true
 	motion = Vector2(0,0)
 	pass # Replace with function body.
 

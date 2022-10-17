@@ -60,6 +60,11 @@ func _process(delta):
 				Shoot()
 		state.ATTACK2:
 			print("atk2")
+			var coquecoisa = randi() % 2
+			if coquecoisa == 0:
+				$AnimationPlayer.play("SwipeL")
+			else:
+				$AnimationPlayer.play("SwipeR")
 			cooldown = 4/lowLifeMult
 			currentState = state.COOLDOWN
 		state.SPAWN:
@@ -72,14 +77,13 @@ func _process(delta):
 				enemySpawner.set_spawn_position()
 				cooldown = 4/lowLifeMult
 			currentState = state.COOLDOWN
-		
 		state.COOLDOWN:
-			$BossBody/BossHead/BossLHand.play("Idle")
-			$BossBody/BossHead/BossRHand.play("Idle")
+#			$BossBody/BossHead/BossLHand.play("Idle")
+#			$BossBody/BossHead/BossRHand.play("Idle")
 			count += delta
 			if count > cooldown:
-				currentState = state.ATTACK
-#				currentState = randi() % 3 + 1
+#				currentState = state.ATTACK2
+				currentState = randi() % 3 + 1
 	
 	if bossBody.global_position.x - player.global_position.x > 50:
 		moveDirection = -1
@@ -140,3 +144,18 @@ func _on_DamageArea_body_entered(body):
 func _on_DamageArea_body_exited(body):
 	if "Player" in body.name:
 		playerOnDamageArea = false
+
+func _on_BossRHand_animation_finished():
+	if $BossBody/BossHead/BossRHand.animation != "Swipe":
+		$BossBody/BossHead/BossRHand.play("Idle")
+
+
+func _on_BossLHand_animation_finished():
+	if $BossBody/BossHead/BossLHand.animation != "Swipe":
+		$BossBody/BossHead/BossLHand.play("Idle")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "SwipeL":
+		$BossBody/BossHead/BossLHand.play("Idle")
+	else:
+		$BossBody/BossHead/BossRHand.play("Idle")
